@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.3.5"
+  },
+  "name": "mongodb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
