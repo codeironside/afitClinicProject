@@ -1,4 +1,4 @@
-const { stack } = require("../routes/goalRoutes")
+const { stack } = require("../routes/staffRoutes")
 
 const errorHandler=(err,req,res,next)=>{
     const statusCode = res.statusCode? res.statusCode:500
@@ -12,3 +12,4 @@ const errorHandler=(err,req,res,next)=>{
 module.exports={
     errorHandler,
 }
+
