@@ -1,10 +1,9 @@
 const mongoose = require("mongoose")
 const Drugschema=mongoose.Schema(
     {
-     DRUG:{
-         type: mongoose.Schema.Types.ObjectId,
-         required:true,
-         ref:"Doctor"
+     DrugName:{
+         type: String,
+         required:[true, "please specify a drug name"]
      },   
     batchNumber:{
         type:String,
@@ -12,14 +11,17 @@ const Drugschema=mongoose.Schema(
         },
         NafdacNumber:{
             type:String,
-            default:"doctor"
+            required:[true,"please add a nafdac number"]
         },
         expirydate:{
             type:String,
             required:[true, "specify a matric number "]
-        },quantity:{
+        },totalquantity:{
             type:String,
             required:[true, "specify a number "]
+        },CurrentQuantity:{
+            type:String,
+            default:"0"
         }
     },
     

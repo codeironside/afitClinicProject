@@ -3,10 +3,12 @@ const { deleteModel } = require('mongoose')
 const router = express.Router()
 const {protect}= require('../middleware/authmiddleware')
 
+
 //controller for tge routes file
-const {getGoals, setGoal, updateGoal, deleteGoal} = require('../controller/staff')
+const {registerStaff} = require('../controller/staffcontroller')
 //each function is imported from the goalcontroller file
-router.route('/').get(protect,getGoals).post(protect,setGoal)
-router.route('/:id').put(protect,updateGoal).delete(protect,deleteGoal)
+router.route('/').post(registerStaff)
+// .post(protect,setGoal)
+// router.route('/:id').put(protect,updateGoal).delete(protect,deleteGoal)
 
 module.exports= router

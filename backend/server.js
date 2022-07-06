@@ -12,8 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use('/api/clinics', require('./routes/staffRoutes'))
+app.use('/api/staff', require('./routes/staffRoutes'))
 app.use('/api/student', require('./routes/studentRoutes'))
+app.use('/api/drug',require('./routes/drugRoutes'))
 app.use(errorHandler)
 app.listen(port,()=>{
     console.log(`server listening on ${port}`)
