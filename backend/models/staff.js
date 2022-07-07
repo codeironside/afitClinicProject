@@ -5,10 +5,10 @@ const clinicschema=mongoose.Schema(
         type:String,
         required:[true, "please add a name "]
         },
-        // passport:{
-        //     type:String,//will be a string,
-        //     required:[true,"please add a photo"]
-        // },
+        passport:{
+            type:String,//will be a string,
+            required:[true,"please add a photo"]
+        },
         role:{
             type:String,
             default:"staff",
