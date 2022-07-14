@@ -5,7 +5,9 @@ const asyncHandler= require('express-async-handler')
 const Staff=require('../models/staff')
 const staff = require('../models/staff')
 // const student = require('../models/student')
-
+const aboutClinic= asyncHandler(async(req,res)=>{
+    res.render("index")
+})
 //@desc register new staff 
 //@routes POST/api/staff
 //@access Public
@@ -58,22 +60,19 @@ const registerStaff =asyncHandler(async(req,res)=>{
 //@routes GET/api/slogin
 //@access Public
 const loginStaff =asyncHandler(async(req,res)=>{
+    res.render('login')
     const {staffNumber} = req.body    
     //check for user email
-    const staff =await Student.findOne({matricNumber})
-    const todaysDate = new Date()
-    const currentYear = todaysDate.getFullYear()
+    const staff =await Staff.findOne({staffNumber})
     if(staff){
         res.json({
+
+            //rendering static file
+            
                 // _id:student.id,
                 
-                name:student.name,
-                matricNumber:student.matricNumber,
-                age: currentYear - student.YOB,
-                bloodGroup:student.bloodGroup,
-                genotype:student.genotype,
-                phoneNumber:student.phoneNumber,
-                disabilities:student.disabilities
+                name:staff.name,
+                role:staff.role,
 
                 // token:generateToken(student._id,student.roles)
         })
@@ -101,5 +100,7 @@ const generateToken = (id)=>{
     return jwt.sign({id}, process.env.JWT_SECRET,{expiresIn:"5y"})
 }
 module.exports= {
-    registerStaff
+    registerStaff,
+    loginStaff,
+    aboutClinic
 }

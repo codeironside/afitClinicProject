@@ -5,9 +5,11 @@ const {protect}= require('../middleware/authmiddleware')
 
 
 //controller for tge routes file
-const {registerStaff} = require('../controller/staffcontroller')
+const {registerStaff, loginStaff, aboutClinic} = require('../controller/staffcontroller')
 //each function is imported from the goalcontroller file
-router.route('/').post(registerStaff)
+router.route('/register').post(registerStaff)
+router.route('').get(aboutClinic)
+router.route('/login').post(loginStaff)
 // .post(protect,setGoal)
 // router.route('/:id').put(protect,updateGoal).delete(protect,deleteGoal)
 
