@@ -24,7 +24,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 
-app.use('/api/staff/', require('./backend/routes/staffRoutes'))
+app.use('', require('./backend/routes/staffRoutes'))
 app.use('/api/student', require('./backend/routes/studentRoutes'))
 app.use('/api/drug',require('./backend/routes/drugRoutes'))
 app.use(errorHandler)

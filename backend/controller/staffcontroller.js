@@ -1,12 +1,15 @@
-
+// const bodyparconst bodyparser= require('body-parser')
+// const {check, validationResult}=require('express-validator')
+// const bodyParser = require('body-parser')
+const url = require("url")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler= require('express-async-handler')
 const Staff=require('../models/staff')
-const staff = require('../models/staff')
 // const student = require('../models/student')
 const aboutClinic= asyncHandler(async(req,res)=>{
     res.render("index")
+    
 })
 //@desc register new staff 
 //@routes POST/api/staff
@@ -56,31 +59,66 @@ const registerStaff =asyncHandler(async(req,res)=>{
 
    
 })
+
 //@desc authenticatenew staff 
 //@routes GET/api/slogin
 //@access Public
 const loginStaff =asyncHandler(async(req,res)=>{
-    res.render('login')
+    const err = req.query.err
+    res.render('login', {err: err})
+    
+  
+})
+const loginStaffs = asyncHandler(async(req,res)=>{
     const {staffNumber} = req.body    
-    //check for user email
+    //check for staff number
     const staff =await Staff.findOne({staffNumber})
-    if(staff){
-        res.json({
 
-            //rendering static file
+    
+    if(req.staffNumber == staff.staffNumber){
+        // prescribtions()
+        console.log(req.body)
+        console.log(staff.name)
+        var staffname= staff.name
+        // return {staffname: staffname}
+        res.redirect(url.format({
+            status="301",
+            pathname:"/doctors",
+            query: {
+               staffname:staffname
+             }
+          }));
+        // res.json({
+
+        //     //rendering static file
             
-                // _id:student.id,
+        //         // _id:student.id,
                 
-                name:staff.name,
-                role:staff.role,
+                
 
-                // token:generateToken(student._id,student.roles)
-        })
+
+        //         // token:generateToken(student._id,student.roles)
+        // })
     }else{
-        res.status(400)
-        throw new Error('Invalid credentials')
+        // res.status(400)
+        // throw new Error('Invalid credentials')
+        // alert('Invalid Credentials')
+        res.redirect(url.format({
+            pathname:"/login",
+            query: {
+               err:"Invalid credentials"
+             }
+          }));
     }
+    
+})
 
+// desc doctors routing here
+// 2@routes internally from the form
+//@access private
+const prescribtions = asyncHandler(async(req,res)=>{
+    var staffname = req.query.staffname;
+    res.render('doctors', {name:staffname})
 })
 //@desc get student data 
 //@routes get/api/staff
@@ -102,5 +140,7 @@ const generateToken = (id)=>{
 module.exports= {
     registerStaff,
     loginStaff,
-    aboutClinic
+    aboutClinic,
+    loginStaffs,
+    prescribtions
 }

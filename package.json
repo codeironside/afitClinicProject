@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
     "cloudinary": "^1.30.0",
     "colors": "^1.4.0",
     "date": "^2.0.0",
@@ -9,6 +10,8 @@
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.5",
