@@ -53,6 +53,8 @@ const registerStudent =asyncHandler(async(req,res)=>{
 
    
 })
+
+
 //@desc authenticatenew staff 
 //@routes GET/api/slogin
 //@access Public
@@ -102,5 +104,5 @@ const generateToken = (id)=>{
 module.exports= {
     registerStudent,
     loginStudent,
-    getStudent
+    getStudent,
 }

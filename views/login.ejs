@@ -26,6 +26,7 @@
             <a href="./about.html">about</a>
             <a href="/login">Log In</a>
             <a href="./blogs.html">blogs</a>
+            <a href="./blogs.html">Register</a>
         </nav>
     
         <div id="menu-btn" class="fas fa-bars"></div>
@@ -42,7 +43,7 @@
             </div>
     
             <form action="/login" method="POST">
-                <h3> <%= err %></h3>
+                <h3> <%= err %> <a hr"></a></h3>
                 <input type="text" name="staffNumber" placeholder="staff number" class="box" required>
                 <input type="text" name="role" placeholder="role" class="box" required>
                 <p type="password" name="password" placeholder="password" class="box">

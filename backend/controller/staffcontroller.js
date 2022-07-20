@@ -11,6 +11,12 @@ const aboutClinic= asyncHandler(async(req,res)=>{
     res.render("index")
     
 })
+
+
+
+const Clinicservices=asyncHandler(async(req, res)=>{
+    res.render("services")
+})
 //@desc register new staff 
 //@routes POST/api/staff
 //@access Public
@@ -70,19 +76,16 @@ const loginStaff =asyncHandler(async(req,res)=>{
   
 })
 const loginStaffs = asyncHandler(async(req,res)=>{
-    const {staffNumber} = req.body    
+    const staffNumber = req.body.staffNumber
+    console.log(staffNumber)    
     //check for staff number
-    const staff =await Staff.findOne({staffNumber})
-
-    
-    if(req.staffNumber == staff.staffNumber){
+    const staff =await Staff.findOne({StaffNumber:staffNumber})
+    if(req.body.staffNumber == staff.StaffNumber){
         // prescribtions()
-        console.log(req.body)
-        console.log(staff.name)
         var staffname= staff.name
         // return {staffname: staffname}
+        
         res.redirect(url.format({
-            status="301",
             pathname:"/doctors",
             query: {
                staffname:staffname
@@ -103,6 +106,7 @@ const loginStaffs = asyncHandler(async(req,res)=>{
         // res.status(400)
         // throw new Error('Invalid credentials')
         // alert('Invalid Credentials')
+        req.body.staffNumber = null
         res.redirect(url.format({
             pathname:"/login",
             query: {
@@ -142,5 +146,6 @@ module.exports= {
     loginStaff,
     aboutClinic,
     loginStaffs,
-    prescribtions
+    prescribtions,
+    Clinicservices
 }
