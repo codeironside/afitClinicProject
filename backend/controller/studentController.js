@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const Student = require("../models/student");
+const studentDiagnosis = require("../models/studentDiagnosis");
+const { ObjectId } = require("mongodb");
+
+const { model } = require("mongoose");
+const studentLabreport = require("../models/studentLabreport");
 // const student = require('../models/student')
 
 //@desc register new student
@@ -17,25 +22,26 @@ const registerStudent = asyncHandler(async (req, res) => {
     genotype,
     phoneNumber,
     disabilities,
+    proveOfPayment,
+    admissionLetter,
   } = req.body;
   if (!name || !matricNumber || !YOB) {
     res.status(400);
     throw new Error("please add all fields");
   }
-  const loginStudent = await Student.findOne({  matricNumber:matricNumber});
+  const loginStudent = await Student.findOne({ matricNumber: matricNumber });
   // console.log(matricNumber)
-   //hash the password
+  //hash the password
   //  const salt = await bcrypt.genSalt(10);
   //  const hashedmatricNumber = await bcrypt.hash(matricNumber, salt)
   //check if student exist
-  
-  
-  console.log(loginStudent)
-  if (loginStudent && bcrypt.compare(matricNumber, loginStudent.matricNumber))  {
+
+  console.log(loginStudent);
+  if (loginStudent && bcrypt.compare(matricNumber, loginStudent.matricNumber)) {
     res.status(400);
     throw new Error("user already exist");
   }
- 
+
   // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
 
   const student = await Student.create({
@@ -44,8 +50,10 @@ const registerStudent = asyncHandler(async (req, res) => {
     YOB,
     bloodGroup,
     genotype,
+    proveOfPayment,
     phoneNumber,
     disabilities,
+    admissionLetter,
 
     // matricNumber:hashedmatricNumber
   });
@@ -88,7 +96,6 @@ const loginStudent = asyncHandler(async (req, res) => {
       disabilities: student.disabilities,
 
       // token:generateToken(student._id,student.roles)
-     
     });
   } else {
     res.status(400);
@@ -99,50 +106,70 @@ const loginStudent = asyncHandler(async (req, res) => {
 //@routes get/api/staff
 //@access Private
 const getStudent = asyncHandler(async (req, res) => {
- //res.json?
-res.json(null);
-res.json({ user: 'tobi' });
-res.status(500).json({ error: 'message' });
+  const { matricNumber } = req.body;
 
-
-
+  const aisha = await Student.findOne({ matricNumber: matricNumber });
+  if(aisha){
+    res.json(aisha)
+  }else{
+    throw new message("student not found")
+  }
 
   console.log(req.student.id);
 });
 
 //update student record
 const updateRecord = asyncHandler(async (req, res) => {
-  
- const student = await Student.findById(req.params.id)
- if(!student){
-  res.status(400)
-  throw new Error('student record not found ')
- }
- const updatedRecord= await Student.findByIdAndUpdate(req.params.id, req.body,{
-  new:true
- })
-})
+  const { doctor } = req.body;
+  // console.log(req.params.proofid)
+  const student = await Student.findById(req.params.id);
+
+  if (!student) {
+    // res.status(400)
+    throw new Error("student record not found ");
+  }
+  //update schema with mongoose?
+  const men = await studentDiagnosis.findByIdAndUpdate(
+    req.params.id,
+    { doctor: req.body.doctor },
+    {
+      new: false,
+      upsert: true,
+    }
+  );
+  const mens = await studentDiagnosis.findByIdAndUpdate(
+    req.params.id,
+    {
+      diagnosis: req.body.diagnosis,
+    },
+    { new: true }
+  );
+  res.status(200).json(men);
+  console.log(men);
+});
+//updating Lab report
+
+
+
 //delete student record
 const deleteRecord = asyncHandler(async (req, res) => {
-  const student = await Student.findById(req.params.id)
-  console.log(student)
-  if(!student){
-   res.status(400)
-   throw new Error('student record not found ')
-   
+  const student = await Student.findById(req.params.id);
+  console.log(student);
+  if (!student) {
+    res.status(400);
+    throw new Error("student record not found ");
   }
-  await Student.remove({id:req.params.id});
+  await Student.deleteOne({ id: req.params.id });
   res.json({
-    message:"record deleted"
-  })
-  
-})
-
+    message: "record deleted",
+  });
+});
 
 module.exports = {
   registerStudent,
   loginStudent,
   getStudent,
   updateRecord,
-  deleteRecord
+  deleteRecord,
+  diagnosis,
 };

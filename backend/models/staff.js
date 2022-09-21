@@ -20,7 +20,7 @@ const Staffschema=mongoose.Schema(
         },
         StaffNumber:{
             type:String,
-            required:[true, "specify an email"],
+            required:[true, "specif a staffNumer"],
             unique:true
         },
         password:{
@@ -50,29 +50,7 @@ const Staffschema=mongoose.Schema(
           employementLetter: {
             type: String, //should be a file system fs url saved here
           },
-          diagnosis: [
-            {
-              diagnosedBY: {
-                type: String,
-              },
-              doctor: {
-                type: String,
-              },
-              diagnosed: [
-                {
-                  ailment: {
-                    type: String,
-                  },
-                  diagnosis: {
-                    type: String,
-                  },
-                },
-              ],
-              Date: {
-                type: String,
-              },
-            },
-          ],
+          
           prescriptions: [
             {
               prescription: {

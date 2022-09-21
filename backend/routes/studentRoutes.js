@@ -6,14 +6,18 @@ const {
   loginStudent,
   updateRecord,
   deleteRecord,
+  diagnosis,
+
 } = require("../controller/studentController");
 
 const { protect } = require("../middleware/authmiddleware");
 
-router.get("/register",protect, registerStudent);
+router.post("/register",protect, registerStudent);
 router.post("/login",protect, loginStudent);
 router.get("/me", protect, getStudent);
-router.put('/:id',protect, updateRecord)
+
 router.delete('/:id',  protect, deleteRecord)
+router.put('/:id',protect, updateRecord)
+router.post('/diagnosed/:id',protect, diagnosis)
  
 module.exports = router;

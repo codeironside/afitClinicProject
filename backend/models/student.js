@@ -37,52 +37,9 @@ const studentschema = mongoose.Schema(
     admissionLetter: {
       type: String, //should be a file system fs url saved here
     },
-    proveOfPayemt: {
+    proveOfPayment: {
       type: String, // should be an file system url here to
-    },
-    diagnosis: [
-      {
-        diagnosedBY: {
-          type: String,
-        },
-        doctor: {
-          type: String,
-        },
-        diagnosed: [
-          {
-            ailment: {
-              type: String,
-            },
-            diagnosis: {
-              type: String,
-            },
-          },
-        ],
-        Date: {
-          type: String,
-        },
-      },
-    ],
-    prescriptions: [
-      {
-        prescription: {
-          type: String,
-        },
-        givenBy: {
-          type: String,
-        },
-        Date: {
-          type: String,
-        },
-      },
-    ],
-
-    referrals: {
-      type: String,
-    },
-    previousDiagnosis: {
-      type: String,
-    },
+    }
   },
   {
     timestamps: true,
