@@ -62,11 +62,11 @@ const registerStaff = asyncHandler(async (req, res) => {
   //hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const user = {
-    id: staff.id, 
-    username: staff.role,
+  // const user = {
+  //   id: staff.id, 
+  //   username: staff.role,
    
-  }
+  // }
   //creat staff
   const staff = await Staff.create({
     name,

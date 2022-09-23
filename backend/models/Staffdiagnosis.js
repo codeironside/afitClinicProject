@@ -1,29 +1,33 @@
+const mongoose = require("mongoose");
+const staffDiagnosis = mongoose.Schema(
+  {
+    studentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: true,
+    },
+    doctor: {
+      type: String,
+      required: [true, "Please add a text value"],
+    },
+    ailment: {
+      type: String,
+    },
+    prescribtions: {
+      type: String,
+    },
+    diagnosis: {
+      type: String,
+    },
 
-const staffDiagnosis = mongoose.Schema({
-  staffID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Staff",
-    required: true,
+    Date: {
+      type: String,
+      required:true
+    },
   },
-  doctor: {
-    type: String,
-    required:true
-  },
-  prescribtions: {
-    type: String,
-  },
-  doctorFindings: {
-    type: String,
-  },
-  diagnosis: {
-    type: String,
-  },
+  {
+    timestamps: true,
+  }
+);
 
-  Date: {
-    type: String,
-  },
-},{
-    timestamps:true
-});
-
-module.exports = staffDiagnosis;
+module.exports = mongoose.model("staffDiagnosis", staffDiagnosis);

@@ -1,4 +1,13 @@
 const mongoose = require("mongoose");
+const path = require("path");
+const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
+const methodOverride = require("method-override");
+
+
+let gfs
 const studentschema = mongoose.Schema(
   {
     name: {

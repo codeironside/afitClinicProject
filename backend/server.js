@@ -5,6 +5,11 @@ const dotenv = require('dotenv').config()
 const {errorHandler}= require("./middleware/errormiddleware")
 const port  = process.env.port|| 5000
 const connectDB= require("./config/db")
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
+const methodOverride = require("method-override");
+const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 
 connectDB()
 
@@ -19,9 +24,9 @@ app.set("view engine", 'ejs')
 
 
 
-
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+app.use(methodOverride('_method'))
 
 
 app.use('/api/staff', require('./routes/staffRoutes'))

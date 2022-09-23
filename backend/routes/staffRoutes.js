@@ -6,6 +6,7 @@ const {protect}= require('../middleware/authmiddleware')
 
 //controller for tge routes file
 const {registerStaff, loginStaff, aboutClinic, loginStaffs,prescribtions, Clinicservices, getStaff} = require('../controller/staffcontroller')
+const staffdiagnosis = require('../controller/staffDiagnosis')
 //each function is imported from the goalcontroller file
 router.route('/register').post(registerStaff)
 router.route('/index').get(aboutClinic)
@@ -16,6 +17,7 @@ router.route('/doctors').get(prescribtions)
 router.route('/doctors').post(prescribtions)
 router.route("/services").get(Clinicservices)
 router.route("/me").post( protect, getStaff);
+router.route('/diagnosed/:id').post(protect, staffdiagnosis)
 // .post(protect,setGoal)
 // router.route('/:id').put(protect,updateGoal).delete(protect,deleteGoal)
 
