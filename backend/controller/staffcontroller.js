@@ -62,6 +62,11 @@ const registerStaff = asyncHandler(async (req, res) => {
   //hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
+  const user = {
+    id: staff.id, 
+    username: staff.role,
+   
+  }
   //creat staff
   const staff = await Staff.create({
     name,
@@ -82,45 +87,48 @@ const registerStaff = asyncHandler(async (req, res) => {
       id: staff.id,
       name: staff.name,
       email: staff.email,
-      token: generateToken(staff._id),
+      role:staff.role
+      // token: generateToken(staff._id),
     });
   } else {
     res.status(400);
     throw new Error("invalid data");
   }
-  if (StaffNumber) {
-    const todaysDate = new Date();
-    const currentYear = todaysDate.getFullYear();
-    res.status(201).json({
-      _id: staff.id,
-      name: staff.name,
-      StaffNumber: staff.StaffNumber,
-      token: generateToken(staff._id.roles),
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid user data");
-  }
+  // if (StaffNumber) {
+  //   const todaysDate = new Date();
+  //   const currentYear = todaysDate.getFullYear();
+  //   res.status(201).json({
+  //     _id: staff.id,
+  //     name: staff.name,
+  //     StaffNumber: staff.StaffNumber,
+  //     token: generateToken(staff._id.roles),
+  //   });
+  // } else {
+  //   res.status(400);
+  //   throw new Error("Invalid user data");
+  // }
 });
 
 //@desc authenticate a staff
 //@routes GET/api/slogin
 //@access Public
-const loginStaff = asyncHandler(async (req, res) => {
+const loginStaffs = asyncHandler(async (req, res) => {
   const err = req.query.err;
   res.render("login", { err: err });
 });
-const loginStaffs = asyncHandler(async (req, res) => {
+const loginStaff = asyncHandler(async (req, res) => {
   const { StaffNumber, password } = req.body;
 
   //check for staff number
   const staff = await Staff.findOne({ StaffNumber: StaffNumber });
   if (staff && bcrypt.compare(password, staff.password)) {
+  
     res.status(201).json({
       id: staff.id,
       name: staff.name,
       email: staff.email,
-      token: generateToken(staff._id),
+      token: generateToken(staff.id),
+      role:staff.role,
     });
   } else {
     res.status(400);
@@ -139,21 +147,22 @@ const prescribtions = asyncHandler(async (req, res) => {
 //@routes get/api/staff
 //@access Private
 const getStaff = asyncHandler(async (req, res) => {
-  // const { _id, name, email } = await Staff.findById(req.student.id);
+  console.log(req.staff)
+  const { _id, name, email, role} = await Staff.findById(req.staff.id);
   // console.log(req.student.id);
+console.log(req.staff)
+  res.status(200).json({
+    id: _id,
+    name,
+    email,
+    role
+    
+  });
 
-  // res.status(200).json({
-  //   id: _id,
-  //   name,
-  //   email,
-  // });
-  res.json({
-    message:"recieved"
-  })
-});
+})
 //generate jwt
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  return jwt.sign({ id}, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 module.exports = {
   registerStaff,

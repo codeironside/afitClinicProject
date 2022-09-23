@@ -5,10 +5,10 @@ const studentschema = mongoose.Schema(
       type: String,
       required: [true, "please add at name value"],
     },
-    // passport: {
-    //   type: String,
-    //   required: [true, "please add a photo"],
-    // },
+    email: {
+      type: String,
+      required: [true, "please add a photo"],
+    },
     matricNumber: {
       type: String,
       required: [true, "please add an matric number"],

@@ -24,6 +24,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     disabilities,
     proveOfPayment,
     admissionLetter,
+    email
   } = req.body;
   if (!name || !matricNumber || !YOB) {
     res.status(400);
@@ -54,6 +55,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     phoneNumber,
     disabilities,
     admissionLetter,
+    email
 
     // matricNumber:hashedmatricNumber
   });
@@ -63,6 +65,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: student.id,
       name: student.name,
+      email:email,
       // age: currentYear - YOB,
       matricNumber: student.matricNumber,
       // token: generateToken(student._id.roles),
@@ -170,6 +173,5 @@ module.exports = {
   loginStudent,
   getStudent,
   updateRecord,
-  deleteRecord,
-  diagnosis,
+  deleteRecord
 };
