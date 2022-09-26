@@ -8,7 +8,7 @@ const {
   deleteRecord,
 
 } = require("../controller/studentController");
-const studentdiagnosis = require('../controller/StudentDiagnosis')
+const {studentdiagnosis, diagnosisData} = require('../controller/StudentDiagnosis')
 
 const { protect } = require("../middleware/authmiddleware");
 
@@ -20,5 +20,6 @@ router.get("/me", protect, loginStudent);
 router.delete('/:id',  protect, deleteRecord)
 router.put('/:id',protect, updateRecord)
 router.post('/diagnosed/:id',protect, studentdiagnosis)
+router.get("/xxx",diagnosisData)
  
 module.exports = router;

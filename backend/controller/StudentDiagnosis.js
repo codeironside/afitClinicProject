@@ -5,11 +5,36 @@ const asyncHandler = require("express-async-handler");
 const Student = require("../models/student");
 const studentDiagnosis = require("../models/studentDiagnosis");
 const { ObjectId } = require("mongodb");
+const axios = require("axios");
+
+//fetch diagnosis meaning
+
+const diagnosisData = asyncHandler(async (req, res) => {
+  const { word } = req.body;
+  console.log(word)
+  const options = {
+    method: "GET",
+    //doctor?key=your-api-key
+    url: `https://www.dictionaryapi.com/api/v3/references/medical/json/${word}?key=f05fa6e4-49db-48d8-b59c-3f03148a1c58`,
+
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+      // console.log(response.data);
+      res.status(200).json(response.data);
+    })
+    .catch(function (error) {
+      // console.error(error);
+      res.json(error);
+    });
+});
 
 //inssert new records
 const studentdiagnosis = asyncHandler(async (req, res) => {
   const { matricNumber, doctor, prescribtions, diagnosis, ailment } = req.body;
-  
+
   const { role, ...data } = req.staff;
   if (role == "doctor") {
     // console.log(req.params.proofid)
@@ -23,6 +48,8 @@ const studentdiagnosis = asyncHandler(async (req, res) => {
     //update schema with mongoose?
     const studentDiagnosed = await studentDiagnosis.create({
       studentId: student.id,
+      studentName: student.name,
+      matricNumber: student.matricNumber,
       doctor: doctor,
       prescribtions: prescribtions,
       diagnosis: diagnosis,
@@ -32,10 +59,10 @@ const studentdiagnosis = asyncHandler(async (req, res) => {
     //date in javascript?
 
     res.status(200).json(studentDiagnosed);
-  }else{
+  } else {
     res.status(403).json({
-      message:'unauthorized access'
-    })
+      message: "unauthorized access",
+    });
   }
 });
-module.exports = studentdiagnosis;
+module.exports = { studentdiagnosis, diagnosisData };

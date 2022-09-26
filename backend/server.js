@@ -11,6 +11,25 @@ const methodOverride = require("method-override");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 
+
+// const axios = require("axios");
+
+// const options = {
+//     method: 'GET',
+//     url: 'https://drug-info-and-price-history.p.rapidapi.com/1/druginfo',
+//     params: {drug: 'advil'},
+//     headers: {
+//       'X-RapidAPI-Key': 'df085e32b2msh5e505dd3bf8fa50p16c8eajsn35385f307eaf',
+//       'X-RapidAPI-Host': 'drug-info-and-price-history.p.rapidapi.com'
+//     }
+//   };
+  
+//   axios.request(options).then(function (response) {
+//       console.log(response.data);
+//   }).catch(function (error) {
+//       console.error(error);
+//   });
+
 connectDB()
 
 const app = express()

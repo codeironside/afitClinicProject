@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Drugschema=mongoose.Schema(
     {
-     DrugName:{
+     DrugNamelowercased:{
          type: String,
          required:[true, "please specify a drug name"]
      },   

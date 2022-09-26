@@ -13,7 +13,7 @@ const methodOverride = require("method-override");
 
 
 const { model } = require("mongoose");
-const studentLabreport = require("../models/studentLabreport");
+const studentLabreport = require("../models/studentMedicalLabReport");
 // const student = require('../models/student')
 
 //@desc register new student
@@ -155,13 +155,18 @@ const loginStudent = asyncHandler(async (req, res) => {
 //@access Private
 const getStudent = asyncHandler(async (req, res) => {
   const { matricNumber } = req.body;
+  console.log(matricNumber)
 
-  const aisha = await Student.findOne({ matricNumber: matricNumber });
-  if (aisha) {
-    res.json(aisha);
+  const studentId = await Student.findOne({ matricNumber: matricNumber });
+  const studentRecord = await studentDiagnosis.findOne({_id:studentId})
+  if (studentId) {
+    if(studentRecord){
+      res.status(200).json(studentRecord)
+    };
   } else {
     throw new message("student not found");
   }
+
 
   console.log(req.student.id);
 });
