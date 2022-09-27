@@ -12,10 +12,12 @@ const axios = require("axios");
 const diagnosisData = asyncHandler(async (req, res) => {
   const { word } = req.body;
   console.log(word)
+  const api_key = process.env.meriam_api_secret
   const options = {
+    
     method: "GET",
     //doctor?key=your-api-key
-    url: `https://www.dictionaryapi.com/api/v3/references/medical/json/${word}?key=f05fa6e4-49db-48d8-b59c-3f03148a1c58`,
+    url: `https://www.dictionaryapi.com/api/v3/references/medical/json/${word}?key=${api_key}`,
 
   };
 
@@ -26,7 +28,7 @@ const diagnosisData = asyncHandler(async (req, res) => {
       res.status(200).json(response.data);
     })
     .catch(function (error) {
-      // console.error(error);
+      console.error(error);
       res.json(error);
     });
 });

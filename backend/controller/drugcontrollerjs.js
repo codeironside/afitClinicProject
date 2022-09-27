@@ -16,7 +16,7 @@ const searched = asyncHandler(async (req, res) => {
     url: "https://drug-info-and-price-history.p.rapidapi.com/1/druginfo",
     params: { drug: searchedDrug },
     headers: {
-      "X-RapidAPI-Key": "df085e32b2msh5e505dd3bf8fa50p16c8eajsn35385f307eaf",
+      "X-RapidAPI-Key": process.env.rapid_api_secret,
       "X-RapidAPI-Host": "drug-info-and-price-history.p.rapidapi.com",
     },
   };
@@ -24,8 +24,8 @@ const searched = asyncHandler(async (req, res) => {
   axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
-      res.status(200).json(response.data[0]);
+      // console.log(response.data);
+      res.status(200).json(response.data);
     })
     .catch(function (error) {
       // console.error(error);
