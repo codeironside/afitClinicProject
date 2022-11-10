@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { protect } = require("../middleware/authmiddleware");
-const { registerNewdrug, searched } = require("../controller/drugcontrollerjs");
+const { registerNewdrug, searched, updateDrugrecord } = require("../controller/drugcontrollerjs");
 
 
 
@@ -10,6 +10,6 @@ router.route("/search").get(searched);
 router.route("/").post(registerNewdrug);
 
 // .post(protect,setGoal)
-// router.route('/:id').put(protect,updateGoal).delete(protect,deleteGoal)
+router.route("/updateDrug").put(updateDrugrecord)
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const fs=require("fs")
 const express = require('express')
 const path = require('path')
 const colors = require("colors")
@@ -10,35 +11,25 @@ const GridFsStorage = require("multer-gridfs-storage");
 const methodOverride = require("method-override");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const https = require("https")
+const helmet = require("./middleware/helmet")
 
 
-// const axios = require("axios");
 
-// const options = {
-//     method: 'GET',
-//     url: 'https://drug-info-and-price-history.p.rapidapi.com/1/druginfo',
-//     params: {drug: 'advil'},
-//     headers: {
-//       'X-RapidAPI-Key': 'df085e32b2msh5e505dd3bf8fa50p16c8eajsn35385f307eaf',
-//       'X-RapidAPI-Host': 'drug-info-and-price-history.p.rapidapi.com'
-//     }
-//   };
-  
-//   axios.request(options).then(function (response) {
-//       console.log(response.data);
-//   }).catch(function (error) {
-//       console.error(error);
-//   });
 
 connectDB()
 
 const app = express()
+app.use(helmet)
 // app.set('views', path.join(__dirname, 'views'))
 app.use(express.static("public"))
 app.use('/css',express.static(__dirname + "public/css"))
 app.use('/js',express.static(__dirname + "public/js"))
 app.set("views", './views')
 app.set("view engine", 'ejs')
+
+//middlewares
+
 
 
 
@@ -52,6 +43,9 @@ app.use('/api/staff', require('./routes/staffRoutes'))
 app.use('/api/student', require('./routes/studentRoutes'))
 app.use('/api/drug',require('./routes/drugRoutes'))
 app.use(errorHandler)
-app.listen(port,()=>{
+https.createServer({
+    key:fs.readFileSync( "key.pem"),
+    cert:fs.readFileSync("cert.pem")
+},app).listen(port,()=>{
     console.log(`server listening on ${port}`)
 } )

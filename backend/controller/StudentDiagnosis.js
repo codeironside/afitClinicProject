@@ -5,37 +5,47 @@ const asyncHandler = require("express-async-handler");
 const Student = require("../models/student");
 const studentDiagnosis = require("../models/studentDiagnosis");
 const { ObjectId } = require("mongodb");
+const Drug = require("../models/drugs");
 const axios = require("axios");
+const studentPR = require("../models/studentPrescribtion");
+const studentPrescribtion = require("../models/studentPrescribtion");
 
 //fetch diagnosis meaning
 
 const diagnosisData = asyncHandler(async (req, res) => {
   const { word } = req.body;
-  console.log(word)
-  const api_key = process.env.meriam_api_secret
+  console.log(word);
+  const api_key = process.env.meriam_api_secret;
   const options = {
-    
     method: "GET",
     //doctor?key=your-api-key
     url: `https://www.dictionaryapi.com/api/v3/references/medical/json/${word}?key=${api_key}`,
-
   };
 
   axios
     .request(options)
     .then(function (response) {
-      // console.log(response.data);
-      res.status(200).json(response.data);
+      if (response.data[0].meta) {
+        res.status(200).json(response.data);
+      } else {
+       
+
+        res.status(400).json({
+          message: "word not found",
+          suggested: response.data,
+        });
+      }
+
     })
     .catch(function (error) {
-      console.error(error);
+      console.log(error);
       res.json(error);
     });
 });
 
 //inssert new records
 const studentdiagnosis = asyncHandler(async (req, res) => {
-  const { matricNumber, doctor, prescribtions, diagnosis, ailment } = req.body;
+  const { matricNumber, doctor, drug, diagnosis, ailment, dosage } = req.body;
 
   const { role, ...data } = req.staff;
   if (role == "doctor") {
@@ -67,4 +77,48 @@ const studentdiagnosis = asyncHandler(async (req, res) => {
     });
   }
 });
-module.exports = { studentdiagnosis, diagnosisData };
+
+const prescribtion = asyncHandler(async (req, res) => {
+  const { matricNumber, drugName, dosage, frequncy } = req.body;
+  // console.log(req.staff)
+  const {role , ...data}=req.staff
+  console.log(role)
+  if(!role||role != "pharmacist" || role !="superAdmin"|| role != "doctor"){
+    res.json({
+      message:"not authorize"
+    })
+  }
+  
+  var prescribedDrugs=[]
+  prescribedDrugs.push(drugName)
+  prescribedDrugs.push(dosage)
+  const StudentId = await Student.findOne({ matricNumber: matricNumber });
+  const Drugfound = await Drug.findOne({ DrugNamelowercased: drugName });
+  if (!Drugfound) {
+    res.status(403).json({
+      message: "Drug not found",
+    });
+  }
+  const prescribed = await studentPrescribtion.create({
+    studentId:StudentId._id,
+    Date: new Date(),
+    studentName:StudentId.name,
+    matricNumber:StudentId.matricNumber,
+    drug:prescribedDrugs,
+    frequncy:frequncy
+
+
+  });
+  await Drug.findByIdAndUpdate(
+    Drugfound._id,
+    {$inc:{
+      CurrentQuantity: -parseInt(dosage),
+      // previousQuantity: druquantity.CurrentQuantity,
+    }},
+    { new: true }
+  )
+  if(prescribed){
+    res.status(202).json(prescribed)
+  }
+});
+module.exports = { studentdiagnosis, diagnosisData, prescribtion };

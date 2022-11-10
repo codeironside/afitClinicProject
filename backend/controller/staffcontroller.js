@@ -87,8 +87,8 @@ const registerStaff = asyncHandler(async (req, res) => {
       id: staff.id,
       name: staff.name,
       email: staff.email,
-      role:staff.role
-      // token: generateToken(staff._id),
+      role:staff.role,
+      token: generateToken(staff._id,role),
     });
   } else {
     res.status(400);

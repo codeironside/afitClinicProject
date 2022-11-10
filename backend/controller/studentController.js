@@ -11,7 +11,7 @@ const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const methodOverride = require("method-override");
 
-
+//TODO :read about socletio
 const { model } = require("mongoose");
 const studentLabreport = require("../models/studentMedicalLabReport");
 // const student = require('../models/student')

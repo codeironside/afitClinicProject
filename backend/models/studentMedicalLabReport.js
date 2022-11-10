@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const studentLabReport = mongoose.Schema(
+const studentLabReportMirctobioloy = mongoose.Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -10,9 +10,13 @@ const studentLabReport = mongoose.Schema(
       type: String,
       required: [true, "Please add a text value"],
     },
+    LabNo: {
+      type: String,
+    },
     Date: {
       type: String,
     },
+
     rank: {
       type: String,
     },
@@ -28,61 +32,71 @@ const studentLabReport = mongoose.Schema(
       type: String,
       required: true,
     },
-    surname: {
-      type: String,
-      required:true
-    },
     age: {
       type: String,
-      required:true
+      required: true,
     },
     sex: {
       type: String,
-      required:true
+      required: true,
     },
     ward: {
       type: String,
-      required:true
+      required: true,
     },
     tel: {
       type: String,
-      required:true
+      required: true,
     },
     ClinicalNotesDiagnosis: {
       type: String,
-      required:true
+      required: true,
     },
     specimen: {
       type: String,
-      required:true
+      required: true,
     },
     investigationRequired: {
       type: String,
-      required:true
+      required: true,
     },
-    labReport: {
-      type: String,
-      required:true
+    labReport: {macro:{type:String}, micro:{type:String}, macro1:{type:String}, micro1:{type:String}},
+    UrinaLysis: {
+      blood:{type:String},
+      bilirubin:{type:String},
+      protein:{type:String},
+      ketone:{type:String},
+      AcetivAcid:{type:String},
+      glucose:{type:String},
+      nitrate:{type:String},
+      urobilinogen:{type:String},
+      OH:{type:String},
+      SG:{type:String},
+      others:{type:String},
     },
-    surname: {
+    fecalOccultBlood: {
       type: String,
-      required:true
+      required: true,
     },
-    surname: {
+    culture: {
       type: String,
-      required:true
+      required: true,
     },
-    surname: {
+    sensitivityTest: {
       type: String,
-      required:true
+      required: true,
     },
-    surname: {
+    otherResult: {
       type: String,
-      required:true
+      required: true,
     },
-    surname: {
+    reportedBy: {
       type: String,
-      required:true
+      required: true,
+    },
+    reviewedBY: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -90,4 +104,113 @@ const studentLabReport = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("studentLabReport", studentLabReport);
+const studentLabReportClinical = mongoose.Schema(
+  {
+    studentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: true,
+    },
+    timecollected: {
+      type: String,
+      required: [true, "Please add a text value"],
+    },
+    LabNo: {
+      type: String,
+    },
+    Date: {
+      type: String,
+    },
+
+    rank: {
+      type: String,
+    },
+    SVC_NO: {
+      type: String,
+    },
+
+    surname: {
+      type: String,
+      required: true,
+    },
+    firstname: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: String,
+      required: true,
+    },
+    sex: {
+      type: String,
+      required: true,
+    },
+    ward: {
+      type: String,
+      required: true,
+    },
+    tel: {
+      type: String,
+      required: true,
+    },
+    ClinicalNotesDiagnosis: {
+      type: String,
+      required: true,
+    },
+    specimen: {
+      type: String,
+      required: true,
+    },
+    glucose: {FBS:{type:String}, RBS:{type:String}, TwoHPP:{type:String}, glysatedHaemoglobin:{type:String}},
+    LiverFunctionTestAdult: {
+      bilirubin1:{type:String},
+      bilirubin2:{type:String},
+      bilirubin3:{type:String},
+      AKphosphate:{type:String},
+      SGOT:{type:String},
+      SGPT:{type:String},
+      protein:{type:String},
+      albumin:{type:String},
+    },
+    bilirubinChildren: {B24HRSOLD:{type:String}, NB48HRSOLD:{type:String}, ThreeFivedays:{type:String}, sevenDays:{type:String}},
+    electroylyteUreaCeratine: {
+      sodium:{type:String},
+      potassium:{type:String},
+      calcium:{type:String},
+      phosphorus:{type:String},
+      Bicarbonatr:{type:String},
+      Urea:{type:String},
+      UricAcid:{type:String},
+      maleCeratine:{type:String},
+      chloride:{type:String},
+      femaleCeratine:{type:String},
+    },
+    lipidProfile: {triglyceride:{type:String},cholestorolTotal:{type:String},cholestorolHDL:{type:String},cholestorolLDL:{type:String}
+
+    },
+    others: {
+      type: String,
+      required: true,
+    },
+    reportedBy: {
+      type: String,
+      required: true,
+    },
+    reviewedBY: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model(
+  "studentLabReportMirctobioloy",
+  studentLabReportMirctobioloy
+);
+module.exports = mongoose.model(
+  "studentLabReportClinical",
+  studentLabReportClinical
+);
