@@ -112,28 +112,37 @@ const registerStaff = asyncHandler(async (req, res) => {
 //@desc authenticate a staff
 //@routes GET/api/slogin
 //@access Public
-const loginStaffs = asyncHandler(async (req, res) => {
-  const err = req.query.err;
-  res.render("login", { err: err });
-});
-const loginStaff = asyncHandler(async (req, res) => {
-  const { StaffNumber, password } = req.body;
+// const loginStaffs = asyncHandler(async (req, res,errr) => {
+//   const err = req.query.err;
+//   res.render("login", { err: err });
+// });
 
+
+//@desc authenticate a staff
+//@routes GET/api/slogin
+//@access Public
+const loginStaff = asyncHandler(async (req, res) => {
+    console.log(req.body)
+    const { StaffNumber, password } = req.body;
   //check for staff number
   const staff = await Staff.findOne({ StaffNumber: StaffNumber });
   if (staff && bcrypt.compare(password, staff.password)) {
-  
+  console.log(staff)
     res.status(201).json({
       id: staff.id,
       name: staff.name,
       email: staff.email,
       token: generateToken(staff.id),
-      role:staff.role,
+      role:staff.role, 
     });
   } else {
-    res.status(400);
-    throw new Error("invalid data");
+    res.status(400).json({
+      Error:"invalid credentials"
+    });
+    throw new Error("invalid data"); 
   }
+  
+  req.end()
 });
 
 // desc doctors routing here
@@ -168,7 +177,7 @@ module.exports = {
   registerStaff,
   loginStaff,
   aboutClinic,
-  loginStaffs,
+  // loginStaffs,
   prescribtions,
   Clinicservices,
   getStaff 
