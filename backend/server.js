@@ -12,12 +12,12 @@ const methodOverride = require("method-override");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const https = require("https");
-const helmet = require("./middleware/helmet");
+// const helmet = require("./middleware/helmet");
 
 connectDB();
 
 const app = express();
-app.use(helmet);
+// app.use(helmet);
 // app.set('views', path.join(__dirname, 'views'))
 app.use(express.static("public"));
 app.use("/css", express.static(__dirname + "public/css"));
@@ -29,7 +29,7 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride("_method"));
+// app.use(methodOverride("_method"));
 
 app.use("/api/staff", require("./routes/staffRoutes"));
 app.use("/api/student", require("./routes/studentRoutes"));

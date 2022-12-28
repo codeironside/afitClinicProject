@@ -12,10 +12,11 @@ router.route('/register').post(registerStaff)
 router.route('/index').get(aboutClinic)
 router.route(' ').get(aboutClinic) 
 // router.route('/login').post(loginStaffs)
+
 router.route('/login').post(loginStaff)
 
 
-router.route("/login").get(protect,getStaff)
+// router.route("/login").get(protect,getStaff)
 router.route('/doctors').get(prescribtions)
 router.route('/doctors').post(prescribtions)
 router.route("/services").get(Clinicservices)

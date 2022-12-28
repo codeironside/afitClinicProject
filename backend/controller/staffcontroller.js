@@ -1,6 +1,6 @@
 // const bodyparconst bodyparser= require('body-parser')
 // const {check, validationResult}=require('express-validator')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const url = require("url");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -119,15 +119,13 @@ const registerStaff = asyncHandler(async (req, res) => {
 
 
 //@desc authenticate a staff
-//@routes GET/api/slogin
+//@routes GET/api/login
 //@access Public
 const loginStaff = asyncHandler(async (req, res) => {
-    console.log(req.body)
     const { StaffNumber, password } = req.body;
   //check for staff number
   const staff = await Staff.findOne({ StaffNumber: StaffNumber });
   if (staff && bcrypt.compare(password, staff.password)) {
-  console.log(staff)
     res.status(201).json({
       id: staff.id,
       name: staff.name,
@@ -136,13 +134,10 @@ const loginStaff = asyncHandler(async (req, res) => {
       role:staff.role, 
     });
   } else {
-    res.status(400).json({
-      Error:"invalid credentials"
-    });
+    res.status(400)
     throw new Error("invalid data"); 
   }
   
-  req.end()
 });
 
 // desc doctors routing here
