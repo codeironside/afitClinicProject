@@ -10,9 +10,13 @@ const methodOverride = require("method-override");
 let gfs
 const studentschema = mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
-      required: [true, "please add at name value"],
+      required: [true, "please add first name"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "please add last name"],
     },
     email: {
       type: String,
@@ -22,6 +26,10 @@ const studentschema = mongoose.Schema(
       type: String,
       required: [true, "please add an matric number"],
       unique: true,
+    },
+    sex:{
+      type:String,
+      required:[true,"please specify a sex"]
     },
     YOB: {
       type: String,

@@ -24,6 +24,6 @@ router.post('/diagnosed/:id',protect, studentdiagnosis)
 router.post('/prescribtions',protect, prescribtion)
 router.get("/data",diagnosisData)
 router.route("/ClinicalReport").post(ClinicalReport)
-router.route("/MicroBiology").post(MicroBiology)
+router.route("/MicroBiology").post(protect,MicroBiology)
  
 module.exports = router;

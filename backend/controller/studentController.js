@@ -13,7 +13,7 @@ const methodOverride = require("method-override");
 
 //TODO :read about socletio
 const { model } = require("mongoose");
-const studentLabreport = require("../models/studentMedicalLabReport");
+
 // const student = require('../models/student')
 
 //@desc register new student
@@ -22,7 +22,9 @@ const studentLabreport = require("../models/studentMedicalLabReport");
 const registerStudent = asyncHandler(async (req, res) => {
   const { role, ...data } = req.staff;
   const {
-    name,
+    sex,
+    firstName,
+    monday,
     matricNumber,
     YOB,
     bloodGroup,
@@ -33,8 +35,9 @@ const registerStudent = asyncHandler(async (req, res) => {
     admissionLetter,
     email,
   } = req.body;
-  if (role == "records" || role == "admin") {
-    if (!name || !matricNumber || !YOB) {
+  console.log(sex)
+  if (role == "records" || role == "admin" || role == "superAdmin") {
+    if (!firstName || !matricNumber || !YOB) {
       res.status(400);
       throw new Error("please add all fields");
     }
@@ -48,7 +51,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     console.log(checkstudent);
     if (
       checkstudent &&
-      bcrypt.compare(matricNumber, checktudent.matricNumber)
+      bcrypt.compare(matricNumber, checkstudent.matricNumber)
     ) {
       res.status(400);
       throw new Error("user already exist");
@@ -57,16 +60,18 @@ const registerStudent = asyncHandler(async (req, res) => {
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
 
     const student = await Student.create({
-      name,
-      matricNumber,
-      YOB,
-      bloodGroup,
-      genotype,
-      proveOfPayment,
-      phoneNumber,
-      disabilities,
-      admissionLetter,
-      email,
+      firstName: firstName,
+      lastName:monday,
+      matricNumber: matricNumber,
+      YOB:YOB,
+      bloodGroup: bloodGroup,
+      genotype: genotype,
+      proveOfPayment: proveOfPayment,
+      phoneNumber: phoneNumber,
+      disabilities: disabilities,
+      admissionLetter: admissionLetter,
+      email:email,
+      sex:sex
 
       // matricNumber:hashedmatricNumber
     });
@@ -115,7 +120,7 @@ const loginStudent = asyncHandler(async (req, res) => {
 
       // token:generateToken(student._id,student.roles)
     });
-    if (role == "admin") {
+    if (role == "superadmin") {
       res.json({
         // _id:student.id,
 

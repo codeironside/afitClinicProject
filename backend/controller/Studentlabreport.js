@@ -1,11 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Student = require("../models/student");
-const studentLabReportMirctobioloy = require("../models/studentMedicalLabReport");
-const studentLabReportClinical = require("../models/studentMedicalLabReport");
+const studentLabReportMircrobiology = require("../models/studentLabReportMircrobiology");
+const studentLabReportClinical = require("../models/studentLabReportClinical");
 const { ObjectId } = require("mongodb");
 
 const MicroBiology = asyncHandler(async (req, res) => {
-  const {studentname} = req.body;
+  const {studentMatricNo,investigationRequired,LabNo,labattendant,rank,SVC_No,ward,tel,ClinicalNotesDiagnosis,specimen,macro,micro1,micro,macro1,blood,bilirubin,protein,ketone,AceticAcid,glucose,nitrate,urobilinogen,PH,SG,otherS,fecalOccultBlood,culture,sensitivityTest,otherResult,reviewedBy,} = req.body;
+  
   //time in javascript?
   // var d = new Date("2011-04-20T09:30:51.01");
   // d.getHours(); // => 9
@@ -16,9 +17,15 @@ const MicroBiology = asyncHandler(async (req, res) => {
   // d.getHours(); // => 9
   // d.getMinutes(); // =>  30
   // d.getSeconds(); // => 51
-  const { role, name, ...data } = req.params;
-  const student = await Student.findOne({studentname});
-  const labReport = await studentLabReportMirctobioloy.create({
+  const { role, name, ...data } = req.staff;
+  const student = await Student.findOne({matricNumber:studentMatricNo});
+  const currentYear = new Date().getFullYear()
+  const age=currentYear - student.YOB
+ 
+  console.log(labattendant)
+
+
+  const labReport = await studentLabReportMircrobiology.create({
     studentId: student.id,
     timeCollected: new Date(),
     LabNo: LabNo,
@@ -26,9 +33,9 @@ const MicroBiology = asyncHandler(async (req, res) => {
     Date: new Date(),
     rank: rank,
     SVC_No: SVC_No,
-    surname: student.surname,
-    firstName: student.firstName,
-    age: student.age,
+    surname: student.lastName,
+    firstname: student.firstName,
+    age: age,
     sex: student.sex,
     ward: ward,
     tel: tel,
@@ -36,16 +43,13 @@ const MicroBiology = asyncHandler(async (req, res) => {
     specimen: specimen,
     investigationRequired: investigationRequired,
     Date: new Date(),
-    labReport: [
-      {
+    // labReport: 
         macro: macro,
         micro: micro,
-        macro1: macro,
-        micro1: micro,
-      },
-    ],
-    Urinalysis: [
-      {
+        macro1: macro1,
+        micro1: micro1,
+  
+    // Urinalysis: 
         blood: blood,
         bilirubin: bilirubin,
         protein: protein,
@@ -54,17 +58,15 @@ const MicroBiology = asyncHandler(async (req, res) => {
         glucose: glucose,
         nitrate: nitrate,
         urobilinogen: urobilinogen,
-        PH: PH,
+        OH: PH,
         SG: SG,
-        others: others,
-      },
-    ],
+        others: otherS,
     fecalOccultBlood: fecalOccultBlood,
     culture: culture,
     sensitivityTest: sensitivityTest,
     otherResult: otherResult,
-    reportedBy: reportedBy,
-    reviewedBy: reviewedBy,
+    reportedBy: name,
+    reviewedBY: reviewedBy,
   });
 
   if (labReport) {
