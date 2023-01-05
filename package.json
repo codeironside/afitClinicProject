@@ -28,12 +28,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "server": "nodemon backend/server.js",
+    "test":"mocha"
   },
   "author": "",
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.16"
   }
 }
