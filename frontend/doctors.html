@@ -8,15 +8,18 @@
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../public/css/doctors.css">
 </head>
 <body>
     <header class="header">
 
-        <a href="#" class="logo"> <i class="fas fa-about"></i> admin</a>
+        <a href="#" class="logo"><i class="fa-solid fa-user-doctor"></i> Welcome Dr <%= name %></a>
     
         <nav class="navbar">
             <a href="./index.html">home</a>
@@ -29,6 +32,7 @@
         <div id="menu-btn" class="fas fa-bars"></div>
     
     </header>
-    <script src="js/script.js"></script>
+
+    <script src="../public/js/script.js"></script>
 </body>
 </html>
