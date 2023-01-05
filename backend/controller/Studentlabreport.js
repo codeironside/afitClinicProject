@@ -105,9 +105,14 @@ const MicroBiology = asyncHandler(async (req, res) => {
     });
   }
 });
+
+
+
+
 const ClinicalReport = asyncHandler(async (req, res) => {
   const {
     LabNo,
+    studentMatricNo,
     rank,
     SVC_No,
     tel,
@@ -145,23 +150,25 @@ const ClinicalReport = asyncHandler(async (req, res) => {
     cholestorolHDL,
     cholestorolLDL,
     others,
-    reportedBy,
-    reviewedBY,
+    reviewedBy,
   } = req.body;
 
   const { role, name, ...data } = req.staff;
-
-  const student = await Student.findById(req.params.id);
-  await studentLabReportClinical.create({
-    studentId: req.params.id,
-    timeCollected: new Date(),
+  if (role=="labattendant"||role=="superadmin"){
+  const student = await Student.findOne({ matricNumber: studentMatricNo });
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - student.YOB;
+  if (student){
+ const clinicallapreport = await studentLabReportClinical.create({
+    studentId: student.id,
+    timecollected: new Date(),
     LabNo: LabNo,
     Date: new Date(),
     rank: rank,
     SVC_No: SVC_No,
-    surname: student.surname,
-    firstName: student.firstName,
-    age: student.age,
+    surname: student.lastName,
+    firstname: student.firstName,
+    age: age,
     sex: student.sex,
     ward: ward,
     tel: tel,
@@ -214,9 +221,18 @@ const ClinicalReport = asyncHandler(async (req, res) => {
     cholestorolHDL: cholestorolHDL,
     cholestorolLDL: cholestorolLDL,
     others: others,
-    reportedBy: reportedBy,
-    reviewedBy: reviewedBy,
+    reportedBy: name,
+    reviewedBY: reviewedBy,
   });
+if(clinicallapreport){
+  res.status(201).json({
+    successful:clinicallapreport
+  })
+}
+else(
+  res.status(202)
+)
+}}
 });
 
 module.exports = {
