@@ -5,6 +5,8 @@
     "body-parser": "^1.20.0",
     "cloudinary": "^1.30.0",
     "colors": "^1.4.0",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
     "date": "^2.0.0",
     "date-and-time": "^2.4.0",
     "dotenv": "^16.0.1",
@@ -14,7 +16,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-validator": "^6.14.2",
     "helmet": "^6.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.5",
@@ -27,9 +29,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "client-install": "cd client && npm install",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "test":"mocha"
+    "test": "mocha",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "MIT",
