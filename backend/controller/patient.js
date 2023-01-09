@@ -135,7 +135,7 @@ const registerPatient = asyncHandler(async (req, res) => {
 //@desc authenticatenew staff
 //@routes GET/api/slogin
 //@access Public
-const loginPatientgit = asyncHandler(async (req, res) => {
+const loginPatient = asyncHandler(async (req, res) => {
   const { matricNumber } = req.body;
   //check for user email
   const { role, ...data } = req.staff;
