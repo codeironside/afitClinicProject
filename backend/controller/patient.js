@@ -31,7 +31,10 @@ const registerPatient = asyncHandler(async (req, res) => {
     middlename,
     surname,
     patientId,
-    YOB,
+    date,
+    month,
+    year,
+    role1,
     bloodGroup,
     genotype,
     phoneNumber,
@@ -39,6 +42,7 @@ const registerPatient = asyncHandler(async (req, res) => {
     proveOfPayment,
     admissionLetter,
     email,
+    employementLetter,
     password
   } = req.body;
   console.log(sex)
@@ -50,8 +54,8 @@ const registerPatient = asyncHandler(async (req, res) => {
     const PATIENT = await Patient.findOne({patientId});
     // console.log(matricNumber)
     //hash the password
-    //  const salt = await bcrypt.genSalt(10);
-    //  const hashedmatricNumber = await bcrypt.hash(matricNumber, salt)
+     const salt = await bcrypt.genSalt(10);
+     const hashedpassword = await bcrypt.hash(password, salt)
     //check if student exist
 
     console.log(PATIENT);
@@ -62,47 +66,76 @@ const registerPatient = asyncHandler(async (req, res) => {
     }
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
-
-    const patient = await Patient.create({
-      firstName: firstName,
-      middlename:middlename,
-      surname:surname,
-      matricNumber: matricNumber,
-      YOB:YOB,
-      bloodGroup: bloodGroup,
-      genotype: genotype,
-      proveOfPayment: proveOfPayment,
-      phoneNumber: phoneNumber,
-      disabilities: disabilities,
-      admissionLetter: admissionLetter,
-      email:email,
-      sex:sex
-
-      // matricNumber:hashedmatricNumber
-    });
-    if (student) {
-      const todaysDate = new Date();
-      const currentYear = todaysDate.getFullYear();
-      res.status(201).json({
-        _id: student.id,
-        name: student.name,
-        email: email,
-        // age: currentYear - YOB,
-        matricNumber: student.matricNumber,
-        // token: generateToken(student._id.roles),
+    if (role1=="patient"){
+      const patient = await Patient.create({
+        firstName: firstName,
+        middlename:middlename,
+        surname:surname,
+        patientId: patientId,
+        date:date,
+        month:month,
+        year:year,
+        bloodGroup: bloodGroup,
+        genotype: genotype,
+        proveOfPayment: proveOfPayment,
+        phoneNumber: phoneNumber,
+        disabilities: disabilities,
+        admissionLetter: admissionLetter,
+        employementLetter,
+        email:email,
+        sex:sex
+  
+        // matricNumber:hashedmatricNumber
       });
-      stafflogger.info(new Error(`${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`));
-    } else {
-      res.status(400);
-      throw new Error("Invalid user data");
+      if (patient) {
+        const todaysDate = new Date();
+        const currentYear = todaysDate.getFullYear();
+        res.status(201).json({
+          _id: patient.id,
+          name: patient.firstName,
+          email: email,
+          // age: currentYear - YOB,
+          patientId: patientId,
+          // token: generateToken(student._id.roles),
+        });
+        stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`);
+      } else {
+        res.status(400);
+        throw new Error("Invalid user data");
+      }
+    }else{
+      const patient = await Patient.create({
+        firstName: firstName,
+        middlename:middlename,
+        surname:surname,
+        matricNumber: matricNumber,
+        date:date,
+        month:month,
+        year:year,
+        bloodGroup: bloodGroup,
+        genotype: genotype,
+        proveOfPayment: proveOfPayment,
+        phoneNumber: phoneNumber,
+        disabilities: disabilities,
+        employementLetter:employementLetter,
+        email:email,
+        sex:sex,
+        password:hashedpassword
+  
+        // matricNumber:hashedmatricNumber
+      });
+
+      stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`);
     }
+
+ 
   }
 });
 
 //@desc authenticatenew staff
 //@routes GET/api/slogin
 //@access Public
-const loginStudent = asyncHandler(async (req, res) => {
+const loginPatientgit = asyncHandler(async (req, res) => {
   const { matricNumber } = req.body;
   //check for user email
   const { role, ...data } = req.staff;
@@ -228,7 +261,7 @@ const deleteRecord = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  registerStudent,
+  registerPatient,
   loginStudent,
   getStudent,
   updateRecord,
