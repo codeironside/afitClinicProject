@@ -164,10 +164,7 @@ console.log(req.staff)
   });
 
 })
-//generate jwt
-const generateToken = (id) => {
-  return jwt.sign({ id}, process.env.JWT_SECRET, { expiresIn: "1d" });
-};
+
 module.exports = {
   registerStaff,
   loginStaff,

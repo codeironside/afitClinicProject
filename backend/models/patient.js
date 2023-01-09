@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
-const Staffschema = mongoose.Schema(
+const patientschema = mongoose.Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+      required: [true, "please add a name "],
+    },
+    middlename: {
+      type: String,
+      required: [true, "please add a name "],
+    },
+    surname: {
       type: String,
       required: [true, "please add a name "],
     },
@@ -19,16 +27,23 @@ const Staffschema = mongoose.Schema(
       unique:false,
       required: [true, "please specify a role"],
     },
-    StaffNumber: {
+    patientId: {
       type: String,
       required: [true, "specif a staffNumer"],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "add a password"],
     },
-    YOB: {
+    date: {
+      type: String,
+      required: [true, "please include a year of birth"],
+    },
+    month: {
+      type: String,
+      required: [true, "please include a year of birth"],
+    },
+    year: {
       type: String,
       required: [true, "please include a year of birth"],
     },
@@ -51,7 +66,12 @@ const Staffschema = mongoose.Schema(
     employementLetter: {
       type: String, //should be a file system fs url saved here
     },
-
+    admissionLetter:{
+      type:string
+    },
+    proofOfPayment:{
+      type:String
+    },
     previousDiagnosis: {
       type: String,
     },
@@ -61,4 +81,4 @@ const Staffschema = mongoose.Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Staff", Staffschema);
+module.exports = mongoose.model("Patient", patientschema);

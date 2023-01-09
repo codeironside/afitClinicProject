@@ -5,7 +5,7 @@ const {protect}= require('../middleware/authmiddleware')
 
 
 //controller for tge routes file
-const {registerStaff, loginStaff, aboutClinic, loginStaffs,prescribtions, Clinicservices, getStaff} = require("../controller/staffcontroller")
+const {registerStaff, loginStaff, aboutClinic, loginStaffs,prescribtions, Clinicservices, getStaff} = require("../controller/stafflogin")
 const staffdiagnosis = require('../controller/staffDiagnosis')
 const { clinicallabreport,Mircrobiology} = require('../controller/staffLabreport')
 //each function is imported from the goalcontroller file

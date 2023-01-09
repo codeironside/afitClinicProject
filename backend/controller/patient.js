@@ -1,31 +1,36 @@
 const date = require("date");
-const jwt = require("jsonwebtoken");
-const path = require("path");
-const crypto = require("crypto");
-const bcrypt = require("bcryptjs");
-const asyncHandler = require("express-async-handler");
-const Student = require("../models/student");
-const studentDiagnosis = require("../models/studentDiagnosis");
-const { ObjectId } = require("mongodb");
+const path = require("path")
+const crypto = require("crypto")
 const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
+const bcrypt = require("bcryptjs");;
+const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
+const Patient = require("../models/patient");
 const methodOverride = require("method-override");
+const stafflogger = require("../utils/stafflogger")
+const asyncHandler = require("express-async-handler");
+const GridFsStorage = require("multer-gridfs-storage");
+const studentDiagnosis = require("../models/studentDiagnosis");
+
+
+
 
 //TODO :read about socletio
 const { model } = require("mongoose");
 
 // const student = require('../models/student')
 
-//@desc register new student
-//@routes GET /api/student
+//@desc register new spatient
+//@routes GET /api/patient
 //@access Public
-const registerStudent = asyncHandler(async (req, res) => {
-  const { role, ...data } = req.staff;
+const registerPatient = asyncHandler(async (req, res) => {
+  const { role,firsname, ...data } = req.staff;
   const {
     sex,
     firstName,
-    monday,
-    matricNumber,
+    middlename,
+    surname,
+    patientId,
     YOB,
     bloodGroup,
     genotype,
@@ -34,34 +39,34 @@ const registerStudent = asyncHandler(async (req, res) => {
     proveOfPayment,
     admissionLetter,
     email,
+    password
   } = req.body;
   console.log(sex)
   if (role == "records" || role == "admin" || role == "superAdmin") {
-    if (!firstName || !matricNumber || !YOB) {
+    if (!firstName || !patientId || !YOB) {
       res.status(400);
       throw new Error("please add all fields");
     }
-    const checkstudent = await Student.findOne({ matricNumber: matricNumber });
+    const PATIENT = await Patient.findOne({patientId});
     // console.log(matricNumber)
     //hash the password
     //  const salt = await bcrypt.genSalt(10);
     //  const hashedmatricNumber = await bcrypt.hash(matricNumber, salt)
     //check if student exist
 
-    console.log(checkstudent);
-    if (
-      checkstudent &&
-      bcrypt.compare(matricNumber, checkstudent.matricNumber)
-    ) {
+    console.log(PATIENT);
+    if (patient)
+    {
       res.status(400);
       throw new Error("user already exist");
     }
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
 
-    const student = await Student.create({
+    const patient = await Patient.create({
       firstName: firstName,
-      lastName:monday,
+      middlename:middlename,
+      surname:surname,
       matricNumber: matricNumber,
       YOB:YOB,
       bloodGroup: bloodGroup,
@@ -86,6 +91,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         matricNumber: student.matricNumber,
         // token: generateToken(student._id.roles),
       });
+      stafflogger.info(new Error(`${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`));
     } else {
       res.status(400);
       throw new Error("Invalid user data");
