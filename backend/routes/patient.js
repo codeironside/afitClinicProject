@@ -10,7 +10,7 @@ const { ClinicalReport, MicroBiology } = require("../controller/Studentlabreport
 
 const { protect } = require("../middleware/authmiddleware");
 
-router.post("/register",protect, registerPatient);
+router.route("/register").post( registerPatient);
 // router.post("/login",protect, loginStudent);
 // // router.get("/me", protect, getStudent);
 // router.get("/me", protect, loginStudent);

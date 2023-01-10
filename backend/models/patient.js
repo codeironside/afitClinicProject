@@ -6,8 +6,7 @@ const patientschema = mongoose.Schema(
       required: [true, "please add a name "],
     },
     middlename: {
-      type: String,
-      required: [true, "please add a name "],
+      type: String
     },
     surname: {
       type: String,

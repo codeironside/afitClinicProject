@@ -26,7 +26,7 @@ const stafflogger = require('./utils/stafflogger');
 
 //logger
 app.use(morgan('tiny', { stream: logger.stream }));
-app.use(morgan('tiny', { stream: stafflogger.stream }));
+// app.use(morgan('tiny', { stream: stafflogger.stream }));
 
 connectDB();
 
@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(methodOverride("_method"));
 
 app.use("/api/staff", require("./routes/staff"));
-app.use("/api/student", require("./routes/patient"));
+app.use("/api/patient", require("./routes/patient"));
 // app.use("/api/drug", require("./routes/drugRoutes"));
 app.use(errorHandler);
 // https.createServer({

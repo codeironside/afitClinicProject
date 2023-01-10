@@ -24,7 +24,7 @@ const { model } = require("mongoose");
 //@routes GET /api/patient
 //@access Public
 const registerPatient = asyncHandler(async (req, res) => {
-  const { role,firsname, ...data } = req.staff;
+  // const { role,firsname, ...data } = req.staff;
   const {
     sex,
     firstName,
@@ -46,27 +46,29 @@ const registerPatient = asyncHandler(async (req, res) => {
     password
   } = req.body;
   console.log(sex)
+  role="admin"
   if (role == "records" || role == "admin" || role == "superAdmin") {
-    if (!firstName || !patientId || !YOB) {
+    if (!firstName || !patientId ||!role1) {
       res.status(400);
       throw new Error("please add all fields");
     }
     const PATIENT = await Patient.findOne({patientId});
     // console.log(matricNumber)
     //hash the password
-     const salt = await bcrypt.genSalt(10);
-     const hashedpassword = await bcrypt.hash(password, salt)
+    
     //check if student exist
 
-    console.log(PATIENT);
-    if (patient)
+    // console.log(PATIENT);
+    if (PATIENT)
     {
       res.status(400);
       throw new Error("user already exist");
     }
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
-    if (role1=="patient"){
+    if (role1=="nurse"||role1=="doctor"||role1=="records"||role1=="pharmacy"||role1=="admin"||role1=="superAdmin"||role1=="labAttendant"){
+      const salt = await bcrypt.genSalt(10);
+      const hashedpassword = await bcrypt.hash(password, salt)
       const patient = await Patient.create({
         firstName: firstName,
         middlename:middlename,
@@ -83,8 +85,8 @@ const registerPatient = asyncHandler(async (req, res) => {
         admissionLetter: admissionLetter,
         employementLetter,
         email:email,
-        sex:sex
-  
+        sex:sex,
+        password:hashedpassword
         // matricNumber:hashedmatricNumber
       });
       if (patient) {
@@ -108,7 +110,7 @@ const registerPatient = asyncHandler(async (req, res) => {
         firstName: firstName,
         middlename:middlename,
         surname:surname,
-        matricNumber: matricNumber,
+        patientId: patientId,
         date:date,
         month:month,
         year:year,
@@ -120,14 +122,30 @@ const registerPatient = asyncHandler(async (req, res) => {
         employementLetter:employementLetter,
         email:email,
         sex:sex,
-        password:hashedpassword
+        
   
         // matricNumber:hashedmatricNumber
       });
 
-      stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`);
+      if (patient) {
+        const todaysDate = new Date();
+        const currentYear = todaysDate.getFullYear();
+        res.status(201).json({
+          _id: patient.id,
+          name: patient.firstName,
+          email: email,
+          // age: currentYear - YOB,
+          patientId: patientId,
+          // token: generateToken(student._id.roles),
+        });
+        stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:tobi`);
+      } else {
+        res.status(400);
+        throw new Error("Invalid user data");
+      };
     }
-
+    res.status(400);
+    throw new Error("not authorized");
  
   }
 });
