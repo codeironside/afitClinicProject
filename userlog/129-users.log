@@ -1,5 +1,0 @@
-2023-01-10 09:02:34[errormiddleware.js] error: "200 - OK - patient is not defined - /api/patient/register - POST - ::1"
-2023-01-10 09:03:17[errormiddleware.js] error: "200 - OK - Illegal arguments: undefined, string - /api/patient/register - POST - ::1"
-2023-01-10 09:04:20[errormiddleware.js] error: "200 - OK - matricNumber is not defined - /api/patient/register - POST - ::1"
-2023-01-10 09:05:27[errormiddleware.js] error: "200 - OK - Patient validation failed: middlename: please add a name , surname: please add a name  - /api/patient/register - POST - ::1"
-2023-01-10 09:06:42[errormiddleware.js] info: "patient created 201 - Created - /api/patient/register - POST - ::1 -done by:tobi"
