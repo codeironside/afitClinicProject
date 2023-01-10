@@ -262,8 +262,5 @@ const deleteRecord = asyncHandler(async (req, res) => {
 
 module.exports = {
   registerPatient,
-  loginStudent,
-  getStudent,
-  updateRecord,
-  deleteRecord,
+ 
 };

@@ -1,4 +1,4 @@
-const { stack } = require("../routes/staffRoutes")
+const { stack } = require("../routes/staff")
 
 const stafflogger = require("../utils/stafflogger")
 const errorHandler=(err,req,res,next)=>{ 

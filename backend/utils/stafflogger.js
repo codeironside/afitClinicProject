@@ -65,4 +65,4 @@ stafflogger.stream = {
 //     userlogger.info(message);
 //   },
 // };
-module.exports = userlogger;
+module.exports = stafflogger;

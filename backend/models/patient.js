@@ -67,7 +67,7 @@ const patientschema = mongoose.Schema(
       type: String, //should be a file system fs url saved here
     },
     admissionLetter:{
-      type:string
+      type:String
     },
     proofOfPayment:{
       type:String
