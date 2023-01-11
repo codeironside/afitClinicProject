@@ -10,37 +10,35 @@ const connectDB = require("./config/db");
 const dotenv = require("dotenv").config();
 const methodOverride = require("method-override");
 const GridFsStorage = require("multer-gridfs-storage");
-const { errorHandler } = require("./middleware/errormiddleware")
+const { errorHandler } = require("./middleware/errormiddleware");
 
 // const helmet = require("./middleware/helmet");
 const app = express();
 //port  number
 const port = process.env.port || 5001;
 
-
-const morgan = require('morgan');
-const logger = require('./utils/logger')
-const stafflogger = require('./utils/stafflogger');
-
-
+const morgan = require("morgan");
+const logger = require("./utils/logger");
+const stafflogger = require("./utils/stafflogger");
 
 //logger
-app.use(morgan('tiny', { stream: logger.stream }));
+app.use(morgan("tiny", { stream: logger.stream }));
 // app.use(morgan('tiny', { stream: stafflogger.stream }));
 
 connectDB();
-
-
 // app.use(helmet);
-
 
 //middlewares
 
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 // app.use(methodOverride("_method"));
 
 app.use("/api/staff", require("./routes/staff"));
+
+{
+}
 app.use("/api/patient", require("./routes/patient"));
 // app.use("/api/drug", require("./routes/drugRoutes"));
 app.use(errorHandler);
@@ -53,5 +51,5 @@ app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
-  logger.info(`server running on development`)
+  logger.info(`server running on development`);
 });
