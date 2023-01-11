@@ -1,0 +1,7 @@
+2023-01-10 08:50:10[errormiddleware.js] info: "POST /api/student/register 404 160 - 713.664 ms\n"
+2023-01-10 08:51:05[errormiddleware.js] info: "POST /api/pstient/register 404 160 - 1.746 ms\n"
+2023-01-10 08:51:50[errormiddleware.js] error: "200 - OK - role is not defined - /api/patient/register - POST - ::1"
+2023-01-10 08:51:50[errormiddleware.js] info: "POST /api/patient/register 200 1136 - 22.706 ms\n"
+2023-01-10 08:54:47[errormiddleware.js] error: "400 - Bad Request - please add all fields - /api/patient/register - POST - ::1"
+2023-01-10 08:56:13[errormiddleware.js] error: "400 - Bad Request - please add all fields - /api/patient/register - POST - ::1"
+2023-01-10 08:57:05[errormiddleware.js] error: "200 - OK - Illegal arguments: undefined, string - /api/patient/register - POST - ::1"
