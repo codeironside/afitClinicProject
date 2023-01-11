@@ -1,19 +1,16 @@
 const date = require("date");
-const path = require("path")
-const crypto = require("crypto")
+const path = require("path");
+const crypto = require("crypto");
 const multer = require("multer");
-const bcrypt = require("bcryptjs");;
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const Patient = require("../models/patient");
 const methodOverride = require("method-override");
-const stafflogger = require("../utils/stafflogger")
+const stafflogger = require("../utils/stafflogger");
 const asyncHandler = require("express-async-handler");
 const GridFsStorage = require("multer-gridfs-storage");
 const studentDiagnosis = require("../models/studentDiagnosis");
-
-
-
 
 //TODO :read about socletio
 const { model } = require("mongoose");
@@ -43,40 +40,47 @@ const registerPatient = asyncHandler(async (req, res) => {
     admissionLetter,
     email,
     employementLetter,
-    password
+    password,
   } = req.body;
-  console.log(sex)
-  role="admin"
+  console.log(sex);
+  role = "admin";
   if (role == "records" || role == "admin" || role == "superAdmin") {
-    if (!firstName || !patientId ||!role1) {
+    if (!firstName || !patientId || !role1) {
       res.status(400);
       throw new Error("please add all fields");
     }
-    const PATIENT = await Patient.findOne({patientId});
+    const PATIENT = await Patient.findOne({ patientId });
     // console.log(matricNumber)
     //hash the password
-    
+
     //check if student exist
 
     // console.log(PATIENT);
-    if (PATIENT)
-    {
+    if (PATIENT) {
       res.status(400);
       throw new Error("user already exist");
     }
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
-    if (role1=="nurse"||role1=="doctor"||role1=="records"||role1=="pharmacy"||role1=="admin"||role1=="superAdmin"||role1=="labAttendant"){
+    if (
+      role1 == "nurse" ||
+      role1 == "doctor" ||
+      role1 == "records" ||
+      role1 == "pharmacy" ||
+      role1 == "admin" ||
+      role1 == "superAdmin" ||
+      role1 == "labAttendant"
+    ) {
       const salt = await bcrypt.genSalt(10);
-      const hashedpassword = await bcrypt.hash(password, salt)
+      const hashedpassword = await bcrypt.hash(password, salt);
       const patient = await Patient.create({
         firstName: firstName,
-        middlename:middlename,
-        surname:surname,
+        middlename: middlename,
+        surname: surname,
         patientId: patientId,
-        date:date,
-        month:month,
-        year:year,
+        date: date,
+        month: month,
+        year: year,
         bloodGroup: bloodGroup,
         genotype: genotype,
         proveOfPayment: proveOfPayment,
@@ -84,9 +88,9 @@ const registerPatient = asyncHandler(async (req, res) => {
         disabilities: disabilities,
         admissionLetter: admissionLetter,
         employementLetter,
-        email:email,
-        sex:sex,
-        password:hashedpassword
+        email: email,
+        sex: sex,
+        password: hashedpassword,
         // matricNumber:hashedmatricNumber
       });
       if (patient) {
@@ -100,37 +104,38 @@ const registerPatient = asyncHandler(async (req, res) => {
           patientId: patientId,
           // token: generateToken(student._id.roles),
         });
-        stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`);
+        stafflogger.info(
+          `patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`
+        );
       } else {
         res.status(400);
         throw new Error("Invalid user data");
       }
-    }else{
+    } else {
       const patient = await Patient.create({
         firstName: firstName,
-        middlename:middlename,
-        surname:surname,
+        middlename: middlename,
+        surname: surname,
         patientId: patientId,
-        date:date,
-        month:month,
-        year:year,
+        date: date,
+        month: month,
+        year: year,
         bloodGroup: bloodGroup,
         genotype: genotype,
         proveOfPayment: proveOfPayment,
         phoneNumber: phoneNumber,
         disabilities: disabilities,
-        employementLetter:employementLetter,
-        email:email,
-        sex:sex,
-        
-  
+        employementLetter: employementLetter,
+        email: email,
+        sex: sex,
+
         // matricNumber:hashedmatricNumber
       });
 
       if (patient) {
         const todaysDate = new Date();
         const currentYear = todaysDate.getFullYear();
-        res.status(201).json({
+        res.json({
           _id: patient.id,
           name: patient.firstName,
           email: email,
@@ -138,15 +143,16 @@ const registerPatient = asyncHandler(async (req, res) => {
           patientId: patientId,
           // token: generateToken(student._id.roles),
         });
-        stafflogger.info(`patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:tobi`);
+        stafflogger.info(
+          `patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:tobi`
+        );
       } else {
         res.status(400);
         throw new Error("Invalid user data");
-      };
+      }
     }
     res.status(400);
     throw new Error("not authorized");
- 
   }
 });
 
@@ -217,18 +223,17 @@ const loginPatient = asyncHandler(async (req, res) => {
 //@access Private
 const getStudent = asyncHandler(async (req, res) => {
   const { matricNumber } = req.body;
-  console.log(matricNumber)
+  console.log(matricNumber);
 
   const studentId = await Student.findOne({ matricNumber: matricNumber });
-  const studentRecord = await studentDiagnosis.findOne({_id:studentId})
+  const studentRecord = await studentDiagnosis.findOne({ _id: studentId });
   if (studentId) {
-    if(studentRecord){
-      res.status(200).json(studentRecord)
-    };
+    if (studentRecord) {
+      res.status(200).json(studentRecord);
+    }
   } else {
     throw new message("student not found");
   }
-
 
   console.log(req.student.id);
 });
@@ -280,5 +285,4 @@ const deleteRecord = asyncHandler(async (req, res) => {
 
 module.exports = {
   registerPatient,
- 
 };

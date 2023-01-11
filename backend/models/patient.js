@@ -23,7 +23,7 @@ const patientschema = mongoose.Schema(
     },
     email: {
       type: String,
-      unique:false,
+      unique:true,
       required: [true, "please specify a role"],
     },
     patientId: {
