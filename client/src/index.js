@@ -5,6 +5,9 @@ import App from "./App";
 import { Login } from "./Pages/Login";
 import { Blog } from "./Components/blog";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Dashboard } from "./Pages/Dashboard";
+import { Register } from "./Pages/Register";
+import { Sidebar } from "./Components/sidebar";
 
 ReactDOM.render(
   <Router>
@@ -14,6 +17,13 @@ ReactDOM.render(
       <Route path="/Login" element={<Login />} />
       <Route path="#Blog" element={<Blog />} />
     </Routes>
+
+    <Sidebar>
+      <Routes>
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Register" element={<Register />} />
+      </Routes>
+    </Sidebar>
   </Router>,
 
   document.getElementById("root")

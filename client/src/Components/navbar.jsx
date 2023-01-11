@@ -23,7 +23,7 @@ export const Navbar = () => {
         <Link to="#Blog">
           <li>Blog</li>
         </Link>
-        <Link to="#Blog">
+        <Link to="#Contact">
           <li>Contact</li>
         </Link>
       </ul>
