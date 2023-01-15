@@ -1,0 +1,7 @@
+2023-01-15 22:41:58[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 22:42:50[errormiddleware.js] error: "200 - OK - Cannot access 'exec' before initialization - /api/patient/login - POST - ::1"
+2023-01-15 22:44:05[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 22:48:47[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 22:49:39[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 22:51:01[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 22:51:30[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "

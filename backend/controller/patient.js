@@ -180,30 +180,39 @@ const loginSTAFF = asyncHandler(async (req, res) => {
     const filter = {
       role: "patient",
     };
-    if(patient.role==="superAdmin"){ 
-      const cursor =await Patient.find({})
+    if (patient.role === "superAdmin") {
+      const cursor = await Patient.find({});
       // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
-  
-  
-   
+
       res.status(200).json(cursor);
-  
+
       stafflogs.info(
         `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
-      );}
-      if (patient.role==="admin"){
-        const cursor =await Patient.find({})
-        // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
-    
-    
-     
-        res.status(200).json(cursor);
-    
-        stafflogs.info(
-          `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
-        )
-      }
- 
+      );
+    }
+    if (patient.role === "admin") {
+      const cursor = await Patient.find({ role: { $in: ["patient"] } }).select([
+        "patientId",
+        "firstName",
+        "admitted",
+        "role",
+      ]);
+      // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
+
+      res.status(200).json(cursor);
+
+      stafflogs.info(
+        `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+      );
+    }
+    if (patient.role === "doctor") {
+      res.status(200).json({
+        role:patient.role
+      })
+      stafflogs.info(
+        `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+      );
+    }
   } else {
     res.status(401);
     throw new Error("invalid Crednetials");
