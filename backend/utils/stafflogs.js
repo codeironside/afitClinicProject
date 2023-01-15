@@ -20,14 +20,14 @@ if (!fs.existsSync(logDir)) {
 
 
 const dailyRotateFileTransport = new transports.DailyRotateFile({
-  filename: `${logDir}/%DATE%-users.log`,
+  filename: `${logDir}/%DATE%--users.log`,
   datePattern: "12h",
   zippedArchive: true,
   maxSize: `${fileSizeToRotate}m`,
   maxFiles: `${numberOfDaysToKeepLog}d`
 });
 
-const stafflogger = createLogger({
+const stafflogs = createLogger({
   // change level if in dev environment versus production
   level: env === 'development' ? 'verbose' : 'info',
   handleExceptions: true,
@@ -55,9 +55,9 @@ const stafflogger = createLogger({
 });
 ;
 
-stafflogger.stream = {
+stafflogs.stream = {
   write: (message) => {
-    stafflogger.info(message);
+    stafflogs.info(message);
   },
 };
 // userlogger.stream = {
@@ -65,4 +65,4 @@ stafflogger.stream = {
 //     userlogger.info(message);
 //   },
 // };
-module.exports = stafflogger;
+module.exports = stafflogs;

@@ -19,7 +19,7 @@ const port = process.env.port || 5001;
 
 const morgan = require("morgan");
 const logger = require("./utils/logger");
-const stafflogger = require("./utils/stafflogger");
+const stafflogs = require("./utils/stafflogs");
 
 //logger
 app.use(morgan("tiny", { stream: logger.stream }));
@@ -35,10 +35,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(methodOverride("_method"));
 
-app.use("/api/staff", require("./routes/staff"));
+app.use("/api/patient", require("./routes/staff"));
 
-{
-}
+
 app.use("/api/patient", require("./routes/patient"));
 // app.use("/api/drug", require("./routes/drugRoutes"));
 app.use(errorHandler);

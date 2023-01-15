@@ -18,7 +18,7 @@ const patientschema = mongoose.Schema(
     // },
     role: {
       type: String,
-      default: "staff",
+      default: "patient",
       required: [true, "please specify a role"],
     },
     email: {

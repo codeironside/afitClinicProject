@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const Patient = require("../models/patient");
 const methodOverride = require("method-override");
-const stafflogger = require("../utils/stafflogger");
+const stafflogs = require("../utils/stafflogs");
 const asyncHandler = require("express-async-handler");
 const GridFsStorage = require("multer-gridfs-storage");
 const studentDiagnosis = require("../models/studentDiagnosis");
@@ -42,10 +42,9 @@ const registerPatient = asyncHandler(async (req, res) => {
     employementLetter,
     password,
   } = req.body;
-  console.log(sex);
-  role = "admin";
+  const role = "admin";
   if (role == "records" || role == "admin" || role == "superAdmin") {
-    if (!firstName || !patientId || !role1) {
+    if (!firstName && !patientId  && role1) {
       res.status(400);
       throw new Error("please add all fields");
     }
@@ -63,13 +62,13 @@ const registerPatient = asyncHandler(async (req, res) => {
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
     if (
-      role1 == "nurse" ||
-      role1 == "doctor" ||
-      role1 == "records" ||
-      role1 == "pharmacy" ||
-      role1 == "admin" ||
-      role1 == "superAdmin" ||
-      role1 == "labAttendant"
+      role1 === "nurse" ||
+      role1 === "doctor" ||
+      role1 === "records" ||
+      role1 === "pharmacist" ||
+      role1 === "admin" ||
+      role1 === "superAdmin" ||
+      role1 === "labAttendant"
     ) {
       const salt = await bcrypt.genSalt(10);
       const hashedpassword = await bcrypt.hash(password, salt);
@@ -91,21 +90,23 @@ const registerPatient = asyncHandler(async (req, res) => {
         email: email,
         sex: sex,
         password: hashedpassword,
+        role:role1
         // matricNumber:hashedmatricNumber
       });
       if (patient) {
         const todaysDate = new Date();
         const currentYear = todaysDate.getFullYear();
-        res.status(201).json({
-          _id: patient.id,
+        res.status(202).json({
+          id: patient.id,
           name: patient.firstName,
           email: email,
           // age: currentYear - YOB,
-          patientId: patientId,
+         "your ID": patientId,
+
           // token: generateToken(student._id.roles),
         });
-        stafflogger.info(
-          `patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:${firstname}`
+        stafflogs.info(
+          `  patient with patientid: ${patientId} created coode:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
         );
       } else {
         res.status(400);
@@ -128,6 +129,7 @@ const registerPatient = asyncHandler(async (req, res) => {
         employementLetter: employementLetter,
         email: email,
         sex: sex,
+       
 
         // matricNumber:hashedmatricNumber
       });
@@ -135,26 +137,41 @@ const registerPatient = asyncHandler(async (req, res) => {
       if (patient) {
         const todaysDate = new Date();
         const currentYear = todaysDate.getFullYear();
-        res.json({
-          _id: patient.id,
+        res.status(202).json({
+          id: patient._id,
           name: patient.firstName,
           email: email,
           // age: currentYear - YOB,
-          patientId: patientId,
+         "Your Id": patientId,
           // token: generateToken(student._id.roles),
         });
-        stafflogger.info(
-          `patient created ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} -done by:tobi`
-        );
+        stafflogs.info(
+          `  patient with patientid: ${patientId} created coode:202 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+        )
       } else {
         res.status(400);
         throw new Error("Invalid user data");
       }
     }
+ 
+  }else{
     res.status(400);
-    throw new Error("not authorized");
+    throw new Error("not authorized")
   }
 });
+
+
+
+
+//@desc login patient
+//@routes GET/api/slogin
+//@access Public
+
+
+const login= asyncHandler(async(req,res)=>{
+  console.log("messgae:welcome to the login page")
+})
+
 
 //@desc authenticatenew staff
 //@routes GET/api/slogin
@@ -285,4 +302,5 @@ const deleteRecord = asyncHandler(async (req, res) => {
 
 module.exports = {
   registerPatient,
+  loginPatient
 };
