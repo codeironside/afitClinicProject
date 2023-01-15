@@ -44,7 +44,7 @@ const registerPatient = asyncHandler(async (req, res) => {
   } = req.body;
   const role = "admin";
   if (role == "records" || role == "admin" || role == "superAdmin") {
-    if (!firstName && !patientId  && role1) {
+    if (!firstName && !patientId && role1) {
       res.status(400);
       throw new Error("please add all fields");
     }
@@ -61,6 +61,7 @@ const registerPatient = asyncHandler(async (req, res) => {
     }
 
     // const hashedmatricNumber= await bcrypt.hash(matricNumber,salt)
+    //TODO:remove super admin when pushing to production
     if (
       role1 === "nurse" ||
       role1 === "doctor" ||
@@ -90,18 +91,18 @@ const registerPatient = asyncHandler(async (req, res) => {
         email: email,
         sex: sex,
         password: hashedpassword,
-        role:role1
+        role: role1,
         // matricNumber:hashedmatricNumber
       });
       if (patient) {
         const todaysDate = new Date();
         const currentYear = todaysDate.getFullYear();
-        res.status(202).json({
+        res.status(200).json({
           id: patient.id,
           name: patient.firstName,
           email: email,
           // age: currentYear - YOB,
-         "your ID": patientId,
+          "your ID": patientId,
 
           // token: generateToken(student._id.roles),
         });
@@ -129,7 +130,6 @@ const registerPatient = asyncHandler(async (req, res) => {
         employementLetter: employementLetter,
         email: email,
         sex: sex,
-       
 
         // matricNumber:hashedmatricNumber
       });
@@ -142,99 +142,74 @@ const registerPatient = asyncHandler(async (req, res) => {
           name: patient.firstName,
           email: email,
           // age: currentYear - YOB,
-         "Your Id": patientId,
+          "Your Id": patientId,
           // token: generateToken(student._id.roles),
         });
         stafflogs.info(
-          `  patient with patientid: ${patientId} created coode:202 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
-        )
+          `  patient with patientid: ${patientId} created coode:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+        );
       } else {
         res.status(400);
         throw new Error("Invalid user data");
       }
     }
- 
-  }else{
-    res.status(400);
-    throw new Error("not authorized")
+  } else {
+    res.status(403);
+    throw new Error("not authorized");
   }
 });
-
-
-
 
 //@desc login patient
 //@routes GET/api/slogin
 //@access Public
 
+const loginPatient = asyncHandler(async (req, res) => {
+  console.log("messgae:welcome to the login page");
+});
 
-const login= asyncHandler(async(req,res)=>{
-  console.log("messgae:welcome to the login page")
-})
-
-
-//@desc authenticatenew staff
+//@desc login staff
 //@routes GET/api/slogin
 //@access Public
-const loginPatient = asyncHandler(async (req, res) => {
-  const { matricNumber } = req.body;
+const loginSTAFF = asyncHandler(async (req, res) => {
+  const { patientId, password } = req.body;
   //check for user email
-  const { role, ...data } = req.staff;
+  // const { role, ...data } = req.staff;
 
-  const student = await Student.findOne({ matricNumber });
-  const todaysDate = new Date();
-  const currentYear = todaysDate.getFullYear();
-  if (student && bcrypt.compare(matricNumber, student.matricNumber)) {
-    if (role == "doctor") {
-    }
-    res.json({
-      // _id:student.id,
-
-      name: student.name,
-      matricNumber: student.matricNumber,
-      age: currentYear - student.YOB,
-      bloodGroup: student.bloodGroup,
-      genotype: student.genotype,
-      phoneNumber: student.phoneNumber,
-      disabilities: student.disabilities,
-
-      // token:generateToken(student._id,student.roles)
-    });
-    if (role == "superadmin") {
-      res.json({
-        // _id:student.id,
-
-        name: student.name,
-        matricNumber: student.matricNumber,
-        age: currentYear - student.YOB,
-        bloodGroup: student.bloodGroup,
-        genotype: student.genotype,
-        phoneNumber: student.phoneNumber,
-        disabilities: student.disabilities,
-
-        // token:generateToken(student._id,student.roles)
-      });
-    }
-    if (roles == "records") {
-      res.json({
-        // _id:student.id,
-
-        name: student.name,
-        matricNumber: student.matricNumber,
-        age: currentYear - student.YOB,
-        bloodGroup: student.bloodGroup,
-        genotype: student.genotype,
-        phoneNumber: student.phoneNumber,
-        disabilities: student.disabilities,
-
-        // token:generateToken(student._id,student.roles)
-      });
-    }
+  const patient = await Patient.findOne({ patientId });
+  if (patient && patient && bcrypt.compare(password, patient.password)) {
+    const filter = {
+      role: "patient",
+    };
+    if(patient.role==="superAdmin"){ 
+      const cursor =await Patient.find({})
+      // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
+  
+  
+   
+      res.status(200).json(cursor);
+  
+      stafflogs.info(
+        `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+      );}
+      if (patient.role==="admin"){
+        const cursor =await Patient.find({})
+        // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
+    
+    
+     
+        res.status(200).json(cursor);
+    
+        stafflogs.info(
+          `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+        )
+      }
+ 
   } else {
-    res.status(400);
-    throw new Error("Invalid credentials");
+    res.status(401);
+    throw new Error("invalid Crednetials");
   }
 });
+
 //@desc get student data
 //@routes get/api/staff
 //@access Private
@@ -300,7 +275,11 @@ const deleteRecord = asyncHandler(async (req, res) => {
   });
 });
 
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+};
 module.exports = {
   registerPatient,
-  loginPatient
+  loginPatient,
+  loginSTAFF,
 };

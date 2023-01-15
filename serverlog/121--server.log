@@ -1,0 +1,7 @@
+2023-01-15 13:00:34[db.js] info: "POST /api/patient/register 400 193 - 14.075 ms\n"
+2023-01-15 13:01:01[db.js] info: "POST /api/patient/register 202 101 - 386.674 ms\n"
+2023-01-15 13:02:43[db.js] info: "POST /api/patient/register 202 98 - 316.965 ms\n"
+2023-01-15 13:09:26[db.js] info: "server running on development"
+2023-01-15 13:09:26[db.js] info: "database up and running on development"
+2023-01-15 13:10:02[db.js] info: "server running on development"
+2023-01-15 13:10:03[db.js] info: "database up and running on development"

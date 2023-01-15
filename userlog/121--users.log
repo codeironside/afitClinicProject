@@ -1,0 +1,3 @@
+2023-01-15 13:00:34[errormiddleware.js] error: "400 - Bad Request - user already exist - /api/patient/register - POST - ::1"
+2023-01-15 13:01:01[errormiddleware.js] info: "  patient with patientid: ADMIN/001 created coode:202 - Accepted - /api/patient/register - POST - ::1 "
+2023-01-15 13:02:43[errormiddleware.js] info: "  patient with patientid: ADMIN/001 created coode:202 - Accepted - /api/patient/register - POST - ::1 "

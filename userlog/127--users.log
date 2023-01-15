@@ -1,0 +1,5 @@
+2023-01-15 19:03:44[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 19:34:33[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 19:41:14[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-15 19:42:27[errormiddleware.js] error: "200 - OK - Invalid select: select only takes 1 argument - /api/patient/login - POST - ::1"
+2023-01-15 19:43:05[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "

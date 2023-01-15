@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerPatient, loginPatient
+  registerPatient, loginPatient, loginSTAFF
  
 
 } = require("../controller/patient");
@@ -12,6 +12,8 @@ const { protect } = require("../middleware/authmiddleware");
 
 router.route("/register").post( registerPatient);
 router.route("/login").get( loginPatient);
+
+router.route("/login").post(loginSTAFF)
 
 // router.post("/login",protect, loginStudent);
 // // router.get("/me", protect, getStudent);

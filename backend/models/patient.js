@@ -74,6 +74,10 @@ const patientschema = mongoose.Schema(
     previousDiagnosis: {
       type: String,
     },
+    admitted:{
+      type:Boolean,
+      default:false
+    }
   },
 
   {
