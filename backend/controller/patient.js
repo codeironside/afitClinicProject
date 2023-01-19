@@ -177,16 +177,14 @@ const loginSTAFF = asyncHandler(async (req, res) => {
 
   const patient = await Patient.findOne({ patientId });
   if (patient && patient && bcrypt.compare(password, patient.password)) {
-    const filter = {
-      role: "patient",
-    };
+
     if (patient.role === "superAdmin") {
       const cursor = await Patient.find({});
       // const cursor =await Patient.find({}).select(["patientId","firstName", "admitted"])
 
       res.status(200).json(cursor);
 
-    
+
     }
     if (patient.role === "admin") {
       const cursor = await Patient.find({ role: { $in: ["patient"] } }).select([

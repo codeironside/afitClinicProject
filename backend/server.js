@@ -39,6 +39,7 @@ app.use("/api/patient", require("./routes/staff"));
 
 
 app.use("/api/patient", require("./routes/patient"));
+app.use("/api/admin", require("./routes/Admin"))
 // app.use("/api/drug", require("./routes/drugRoutes"));
 app.use(errorHandler);
 // https.createServer({
