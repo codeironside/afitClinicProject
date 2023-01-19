@@ -15,6 +15,8 @@ router.route("/login").get( loginPatient);
 
 router.route("/login").post(loginSTAFF)
 
+
+
 // router.post("/login",protect, loginStudent);
 // // router.get("/me", protect, getStudent);
 // router.get("/me", protect, loginStudent);

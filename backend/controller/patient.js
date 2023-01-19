@@ -186,9 +186,7 @@ const loginSTAFF = asyncHandler(async (req, res) => {
 
       res.status(200).json(cursor);
 
-      stafflogs.info(
-        `  patient(staff) with patientid: ${patientId} logged in code:200 - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
-      );
+    
     }
     if (patient.role === "admin") {
       const cursor = await Patient.find({ role: { $in: ["patient"] } }).select([
