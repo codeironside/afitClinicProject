@@ -34,8 +34,8 @@ const studentPR = mongoose.Schema(
       type: String,
     },
 
-    Date: {
-      type: String,
+    disbursed: {
+      type: Boolean,
       required: true,
     },
   },

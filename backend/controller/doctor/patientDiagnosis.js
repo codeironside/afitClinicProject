@@ -60,8 +60,10 @@ const patientdiagnosis = asyncHandler(async (req, res) => {
   const { patientId, diagnosis, ailment} = req.body;
 
   const { id } = req.staff;
-  
-  if (role == "doctor") {
+
+  const doc= await Patient.findById(id)
+
+  if (doc.role === "doctor"||doc.role==="superAdmin") {
     // console.log(req.params.proofid)
     const patient = await Patient.findOne({ patientId: patientId });
     // console.log(student)
@@ -92,46 +94,48 @@ const patientdiagnosis = asyncHandler(async (req, res) => {
 });
 
 const prescribtion = asyncHandler(async (req, res) => {
-  const { matricNumber, drugName, dosage, frequncy } = req.body;
+  const {drugName, dosage, frequncy ,patienId} = req.body;
   // console.log(req.staff)
-  const {role , ...data}=req.staff
-  console.log(role)
-  if(!role||role != "pharmacist" || role !="superAdmin"|| role != "doctor"){
-    res.json({
-      message:"not authorize"
-    })
+  const {id}=req.staff
+  const staff = await Patient.findById(id)
+  if(staff){
+    var prescribedDrugs=[]
+    prescribedDrugs.push(drugName)
+    prescribedDrugs.push(dosage)
+    const patientId = await Patient.findOne({ patientId: patientId});
+    if(!patientId){
+      res.status(401)
+      throw  new Error("patient not foud")
+    }
+    const Drugfound = await Drug.findOne({ DrugNamelowercased: drugName });
+    if (!Drugfound) {
+      res.status(403).json({
+        message: "Drug not found",
+      });
+    }
+    const prescribed = await patientPrescribtion.create({
+      studentId:StudentId._id,
+      Date: new Date(),
+      studentName:StudentId.name,
+      matricNumber:StudentId.matricNumber,
+      drug:prescribedDrugs,
+      frequncy:frequncy
+  
+  
+    });
+    await Drug.findByIdAndUpdate(
+      Drugfound._id,
+      {$inc:{
+        CurrentQuantity: -parseInt(dosage),
+        // previousQuantity: druquantity.CurrentQuantity,
+      }},
+      { new: true }
+    )
+    if(prescribed){
+      res.status(202).json(prescribed)
+    }
   }
   
-  var prescribedDrugs=[]
-  prescribedDrugs.push(drugName)
-  prescribedDrugs.push(dosage)
-  const StudentId = await Student.findOne({ matricNumber: matricNumber });
-  const Drugfound = await Drug.findOne({ DrugNamelowercased: drugName });
-  if (!Drugfound) {
-    res.status(403).json({
-      message: "Drug not found",
-    });
-  }
-  const prescribed = await studentPrescribtion.create({
-    studentId:StudentId._id,
-    Date: new Date(),
-    studentName:StudentId.name,
-    matricNumber:StudentId.matricNumber,
-    drug:prescribedDrugs,
-    frequncy:frequncy
-
-
-  });
-  await Drug.findByIdAndUpdate(
-    Drugfound._id,
-    {$inc:{
-      CurrentQuantity: -parseInt(dosage),
-      // previousQuantity: druquantity.CurrentQuantity,
-    }},
-    { new: true }
-  )
-  if(prescribed){
-    res.status(202).json(prescribed)
-  }
+ 
 });
 module.exports = { patientdiagnosis, diagnosisData, prescribtion };
