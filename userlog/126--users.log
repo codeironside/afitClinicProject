@@ -12,3 +12,7 @@
 2023-01-19 18:56:58[errormiddleware.js] error: "200 - OK - Patient validation failed: date: please include a year of birth, month: please include a year of birth, year: please include a year of birth - /api/patient/register - POST - ::1"
 2023-01-19 18:57:55[errormiddleware.js] info: "  patient with patientid: AFIT-SUPERs created coode:200 - Accepted - /api/patient/register - POST - ::1 "
 2023-01-19 18:59:04[errormiddleware.js] info: "  patient with patientid: AFIT-SUPER created coode:200 - Accepted - /api/patient/register - POST - ::1 "
+2023-01-20 18:15:15[errormiddleware.js] error: "200 - OK - Patient validation failed: disabilities: if no disabilities add as none, phoneNumber: please include phone number, genotype: please include a genotype, bloodGroup: please include a blood group, year: please include a year of birth, month: please include a year of birth, date: please include a year of birth, email: please specify a role, surname: please add a name , firstName: please add a name  - /api/patient/prescribtion - POST - ::1"
+2023-01-20 18:19:56[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
+2023-01-20 18:20:26[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
+2023-01-20 18:21:02[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "

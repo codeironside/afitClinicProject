@@ -10,19 +10,18 @@ const patientDiagnosis = mongoose.Schema(
       type: String,
       required: [true, "Please add a text value"],
     },
+    doctorId: {
+      type:String,
+      required:[true,'please add a doctor id']
+    },
+    doctorname: {type:String,
+      required:[true,'please add a doctor id']},
     ailment: {
       type: String,
     },
-    prescribtions: {
-      type: String,
-    },
+
     diagnosis: {
       type: String,
-    },
-
-    Date: {
-      type: String,
-      required:true
     },
   },
   {

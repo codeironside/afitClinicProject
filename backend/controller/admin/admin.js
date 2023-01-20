@@ -60,6 +60,46 @@ const getoneProfession = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 });
+
+const getonepatient = asyncHandler(async (req, res) => {
+  const { patientId } = req.id;
+//TODO:work on this ASAP when you come back
+  Patient.aggregate([
+    {
+      $match: { _id: patientId },
+    },
+    {
+      $lookup: {
+        from: "patient",
+        localField: "_id",
+        foreignField: "user_id",
+        as: "shop_info",
+      },
+    },
+    {
+      $unwind: "$shop_info",
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "shop_info._id",
+        foreignField: "shop_id",
+        as: "product_info",
+      },
+    },
+    {
+      $unwind: "$product_info",
+    },
+    {
+      $lookup: {
+        from: "purchases",
+        localField: "product_info._id",
+        foreignField: "product_id",
+        as: "purchases_info",
+      },
+    },
+  ]);
+});
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };

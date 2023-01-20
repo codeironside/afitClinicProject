@@ -6,22 +6,19 @@ const studentPR = mongoose.Schema(
       ref: "PATIENT",
       required: true,
     },
-    matricNumber:{
-        type:String,
-        required:[true, "please add matric Number"]
-    },
+  
     patientName:{
         type:String,
         required:[true, "please add a name"]
     },
     GivenBY: {
-      type: String,
-      ref: "Patient",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "PATIENT",
       required: [true, "Please add a text value"],
     },
     doctor: {
       type: String,
-      ref: "Staff",
+      ref: "PATIENT",
         required: [true, "Please add a text value"],
     },
     drug: {
@@ -36,7 +33,8 @@ const studentPR = mongoose.Schema(
 
     disbursed: {
       type: Boolean,
-      required: true,
+      default:false,
+      required:[true, "please indicate if disbursed or not"]
     },
   },
   {
