@@ -1,1 +1,2 @@
 2023-01-15 21:51:44[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-20 21:39:06[errormiddleware.js] error: "200 - OK - Cannot destructure property 'patientId' of 'req.id' as it is undefined. - /api/admin/getoneuser - GET - ::1"

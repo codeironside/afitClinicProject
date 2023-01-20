@@ -62,45 +62,52 @@ const getoneProfession = asyncHandler(async (req, res) => {
 });
 
 const getonepatient = asyncHandler(async (req, res) => {
-  const { patientId } = req.id;
-//TODO:work on this ASAP when you come back
-  Patient.aggregate([
+  const { patientId } = req.body;
+  //TODO:work on this ASAP when you come back
+   const lookup = await Patient.aggregate([
     {
       $match: { _id: patientId },
     },
     {
       $lookup: {
-        from: "patient",
+        from: "patientdiagnosis",
         localField: "_id",
-        foreignField: "user_id",
-        as: "shop_info",
+        foreignField: "patientd",
+        as: "patientdiagnosis",
       },
     },
     {
-      $unwind: "$shop_info",
+      $unwind: "$patientId",
     },
-    {
-      $lookup: {
-        from: "products",
-        localField: "shop_info._id",
-        foreignField: "shop_id",
-        as: "product_info",
-      },
-    },
-    {
-      $unwind: "$product_info",
-    },
-    {
-      $lookup: {
-        from: "purchases",
-        localField: "product_info._id",
-        foreignField: "product_id",
-        as: "purchases_info",
-      },
-    },
+    // {
+    //   $lookup: {
+    //     from: "patientPrescribtion",
+    //     localField: "_id",
+    //     foreignField: "patientI",
+    //     as: "product_info",
+    //   },
+    // },
+    // {
+    //   $unwind: "$patientPrescribtion",
+    // },
+    // {
+    //   $lookup: {
+    //     from: "purchases",
+    //     localField: "product_info._id",
+    //     foreignField: "product_id",
+    //     as: "purchases_info",
+    //   },
+    // },
   ]);
+
+  if(lookup){
+    res.status(200).json({user:lookup})
+  }else{
+    res.status(400)
+    throw new Error("user not found")
+  }
 });
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
-module.exports = { loginAdmin, getoneProfession };
+module.exports = { loginAdmin, getoneProfession, getonepatient };
