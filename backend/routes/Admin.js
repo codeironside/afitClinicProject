@@ -3,11 +3,12 @@ const router = express.Router();
 
 
 const { protect } = require("../middleware/authmiddleware");
-const loginAdmin = require("../controller/admin/admin");
+const {loginAdmin, getoneProfession} = require("../controller/admin/admin");
 
 
 
 
 router.route("/login").post(loginAdmin)
+router.route("/getone").get(protect,getoneProfession)
 
 module.exports = router;

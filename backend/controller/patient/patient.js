@@ -5,12 +5,12 @@ const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
-const Patient = require("../models/patient");
+const Patient = require("../../models/patient");
 const methodOverride = require("method-override");
-const stafflogs = require("../utils/stafflogs");
+const stafflogs = require("../../utils/stafflogs");
 const asyncHandler = require("express-async-handler");
 const GridFsStorage = require("multer-gridfs-storage");
-const studentDiagnosis = require("../models/studentDiagnosis");
+const studentDiagnosis = require("../../models/studentDiagnosis");
 
 //TODO :read about socletio
 const { model } = require("mongoose");

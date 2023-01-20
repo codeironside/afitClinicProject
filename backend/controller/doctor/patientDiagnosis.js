@@ -9,6 +9,7 @@ const Drug = require("../../models/drugs");
 const axios = require("axios");
 const studentPR = require("../../models/patientPrescribtion");
 const patientPrescribtion = require("../../models/patientPrescribtion");
+const patient = require("../../models/patient");
 
 //fetch diagnosis meaning
 
@@ -51,12 +52,18 @@ const diagnosisData = asyncHandler(async (req, res) => {
 
 //inssert new records
 const patientdiagnosis = asyncHandler(async (req, res) => {
-  const { patientId, doctor, drug, diagnosis, ailment, dosage } = req.body;
 
-  const { role, ...data } = req.staff;
+
+
+
+
+  const { patientId, diagnosis, ailment} = req.body;
+
+  const { id } = req.staff;
+  
   if (role == "doctor") {
     // console.log(req.params.proofid)
-    const student = await Patient.findOne({ patientId: patientId });
+    const patient = await Patient.findOne({ patientId: patientId });
     // console.log(student)
 
     if (!student) {
@@ -65,9 +72,9 @@ const patientdiagnosis = asyncHandler(async (req, res) => {
     }
     //update schema with mongoose?
     const studentDiagnosed = await Patient.create({
-      studentId: student.id,
-      studentName: student.name,
-      matricNumber: student.matricNumber,
+      studentId: patient.id,
+      studentName: patient.name,
+      patientId: patientId,
       doctor: doctor,
       prescribtions: prescribtions,
       diagnosis: diagnosis,

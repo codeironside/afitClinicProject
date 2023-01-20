@@ -4,7 +4,7 @@ const {
   registerPatient, loginPatient, loginSTAFF
  
 
-} = require("../controller/patient");
+} = require("../controller/patient/patient");
 const {studentdiagnosis, diagnosisData, prescribtion} = require('../controller/doctor/patientDiagnosis');
 const { ClinicalReport, MicroBiology } = require("../controller/labattendant/Studentlabreport");
 
@@ -25,7 +25,7 @@ router.route("/login").post(loginSTAFF)
 // router.put('/:id',protect, updateRecord)
 // router.post('/diagnosed/:id',protect, studentdiagnosis)
 // router.post('/prescribtions',protect, prescribtion)
-// router.get("/data",diagnosisData)
+router.route("/data").get(diagnosisData)
 // router.route("/ClinicalReport").post(protect,ClinicalReport)
 // router.route("/MicroBiology").post(protect,MicroBiology)
  

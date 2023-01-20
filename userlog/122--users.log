@@ -29,3 +29,7 @@
 2023-01-15 14:44:35[errormiddleware.js] error: "200 - OK - client is not defined - /api/patient/login - POST - ::1"
 2023-01-15 14:47:22[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
 2023-01-15 14:49:42[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-20 14:14:48[errormiddleware.js] error: "401 - Unauthorized - invalid credentials - /api/admin/login - POST - ::1"
+2023-01-20 14:15:53[errormiddleware.js] error: "401 - Unauthorized - invalid credentials - /api/admin/login - POST - ::1"
+2023-01-20 14:21:17[errormiddleware.js] error: "200 - OK - jwt is not defined - /api/admin/login - POST - ::1"
+2023-01-20 14:28:59[errormiddleware.js] error: "200 - OK - Cannot access 'profession' before initialization - /api/admin/getone - GET - ::1"
