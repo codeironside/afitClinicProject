@@ -28,7 +28,7 @@ const patientschema = mongoose.Schema(
     },
     patientId: {
       type: String,
-      required: [true, "specif a staffNumer"],
+      required: [true, "please insert a patient ID"],
       unique: true,
     },
     password: {

@@ -7,3 +7,8 @@
 2023-01-15 18:23:28[errormiddleware.js] error: "200 - OK - Cannot do inclusion on field field1 in exclusion projection - /api/patient/login - POST - ::1"
 2023-01-15 18:37:49[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
 2023-01-15 18:41:53[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-19 18:32:32[errormiddleware.js] error: "200 - OK - Patient validation failed: firstName: please add a name , surname: please add a name , patientId: specif a staffNumer, date: please include a year of birth, month: please include a year of birth, year: please include a year of birth - /api/patient/register - POST - ::1"
+2023-01-19 18:49:21[errormiddleware.js] error: "200 - OK - Patient validation failed: surname: please add a name , patientId: specif a staffNumer, date: please include a year of birth, month: please include a year of birth, year: please include a year of birth - /api/patient/register - POST - ::1"
+2023-01-19 18:56:58[errormiddleware.js] error: "200 - OK - Patient validation failed: date: please include a year of birth, month: please include a year of birth, year: please include a year of birth - /api/patient/register - POST - ::1"
+2023-01-19 18:57:55[errormiddleware.js] info: "  patient with patientid: AFIT-SUPERs created coode:200 - Accepted - /api/patient/register - POST - ::1 "
+2023-01-19 18:59:04[errormiddleware.js] info: "  patient with patientid: AFIT-SUPER created coode:200 - Accepted - /api/patient/register - POST - ::1 "
