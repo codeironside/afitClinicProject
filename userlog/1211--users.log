@@ -1,0 +1,2 @@
+2023-01-20 11:10:00[errormiddleware.js] info: "  patient with patientid: AFIT-SUPER created coode:200 - OK - /api/patient/register - POST - ::1 "
+2023-01-20 11:10:37[errormiddleware.js] error: "200 - OK - bcrypt is not defined - /api/admin/login - POST - ::1"

@@ -1,10 +1,10 @@
 const asyncHandler = require("express-async-handler");
-const Staff = require("../models/staff");
-const staffLabReportMircrobiology = require("../models/staffLabReportMircrobiology");
-const staffLabReportClinical = require("../models/staffLabReportClinical");
+const Student = require("../../models/student");
+const studentLabReportMircrobiology = require("../../models/studentLabReportMircrobiology");
+const studentLabReportClinical = require("../../models/studentLabReportClinical");
 const { ObjectId } = require("mongodb");
 
-const Mircrobiology = asyncHandler(async (req, res) => {
+const MicroBiology = asyncHandler(async (req, res) => {
   const {
     studentMatricNo,
     investigationRequired,
@@ -49,14 +49,14 @@ const Mircrobiology = asyncHandler(async (req, res) => {
   // d.getMinutes(); // =>  30
   // d.getSeconds(); // => 51
   const { role, name, ...data } = req.staff;
-  const staff = await Staff.findOne({ matricNumber: studentMatricNo });
+  const student = await Student.findOne({ matricNumber: studentMatricNo });
   const currentYear = new Date().getFullYear();
   const age = currentYear - student.YOB;
 
   console.log(labattendant);
 
-  const labReport = await staffLabReportMircrobiology.create({
-    studentId: staff.id,
+  const labReport = await studentLabReportMircrobiology.create({
+    studentId: student.id,
     timeCollected: new Date(),
     LabNo: LabNo,
     labattendant: labattendant,
@@ -109,7 +109,7 @@ const Mircrobiology = asyncHandler(async (req, res) => {
 
 
 
-const clinicallabreport = asyncHandler(async (req, res) => {
+const ClinicalReport = asyncHandler(async (req, res) => {
   const {
     LabNo,
     studentMatricNo,
@@ -236,6 +236,6 @@ else(
 });
 
 module.exports = {
-    Mircrobiology,
-  clinicallabreport,
+  ClinicalReport,
+  MicroBiology,
 };

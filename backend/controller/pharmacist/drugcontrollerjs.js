@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const Student = require("../models/student");
+const Student = require("../../models/student");
 const Staff = require("../models/staff");
-const Drug = require("../models/drugs");
+const Drug = require("../../models/drugs");
 const axios = require("axios");
-const drugs = require("../models/drugs");
+const drugs = require("../../models/drugs");
 
 // searched drugs
 const searched = asyncHandler(async (req, res) => {

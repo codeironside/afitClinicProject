@@ -5,8 +5,8 @@ const {
  
 
 } = require("../controller/patient");
-const {studentdiagnosis, diagnosisData, prescribtion} = require('../controller/StudentDiagnosis');
-const { ClinicalReport, MicroBiology } = require("../controller/Studentlabreport");
+const {studentdiagnosis, diagnosisData, prescribtion} = require('../controller/doctor/patientDiagnosis');
+const { ClinicalReport, MicroBiology } = require("../controller/labattendant/Studentlabreport");
 
 const { protect } = require("../middleware/authmiddleware");
 

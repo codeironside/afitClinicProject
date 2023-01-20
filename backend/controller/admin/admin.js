@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const Patient = require("../models/patient");
+const Patient = require("../../models/patient");
+const bcrypt = require("bcryptjs")
 
 const loginAdmin = asyncHandler(async (req, res) => {
   const { patientId, password } = req.body;

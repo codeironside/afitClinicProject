@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const staffDiagnosis = mongoose.Schema(
+const patientDiagnosis = mongoose.Schema(
   {
-    studentId: {
+    patientId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student",
       required: true,
     },
-    doctor: {
+    patientName: {
       type: String,
       required: [true, "Please add a text value"],
     },
@@ -30,4 +30,4 @@ const staffDiagnosis = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("staffDiagnosis", staffDiagnosis);
+module.exports = mongoose.model("patientDiagnosis", patientDiagnosis);

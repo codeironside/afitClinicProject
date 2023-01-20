@@ -1,28 +1,28 @@
 const mongoose = require("mongoose");
 const studentPR = mongoose.Schema(
   {
-    studentId: {
+    patienId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
+      ref: "PATIENT",
       required: true,
     },
     matricNumber:{
         type:String,
         required:[true, "please add matric Number"]
     },
-    studentName:{
+    patientName:{
         type:String,
         required:[true, "please add a name"]
     },
     GivenBY: {
       type: String,
-      ref: "Staff",
-      //   required: [true, "Please add a text value"],
+      ref: "Patient",
+      required: [true, "Please add a text value"],
     },
     doctor: {
       type: String,
       ref: "Staff",
-      //   required: [true, "Please add a text value"],
+        required: [true, "Please add a text value"],
     },
     drug: {
       type: mongoose.Schema.Types.Mixed,

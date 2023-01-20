@@ -2,13 +2,13 @@ const date = require("date");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const Student = require("../models/student");
-const studentDiagnosis = require("../models/studentDiagnosis");
+const Patient  = require("../../models/patient");
+const patientDiagnosis = require("../../models/patientdiagnosis");
 const { ObjectId } = require("mongodb");
-const Drug = require("../models/drugs");
+const Drug = require("../../models/drugs");
 const axios = require("axios");
-const studentPR = require("../models/studentPrescribtion");
-const studentPrescribtion = require("../models/studentPrescribtion");
+const studentPR = require("../../models/patientPrescribtion");
+const patientPrescribtion = require("../../models/patientPrescribtion");
 
 //fetch diagnosis meaning
 
@@ -43,14 +43,20 @@ const diagnosisData = asyncHandler(async (req, res) => {
     });
 });
 
+
+
+
+
+
+
 //inssert new records
-const studentdiagnosis = asyncHandler(async (req, res) => {
-  const { matricNumber, doctor, drug, diagnosis, ailment, dosage } = req.body;
+const patientdiagnosis = asyncHandler(async (req, res) => {
+  const { patientId, doctor, drug, diagnosis, ailment, dosage } = req.body;
 
   const { role, ...data } = req.staff;
   if (role == "doctor") {
     // console.log(req.params.proofid)
-    const student = await Student.findOne({ matricNumber: matricNumber });
+    const student = await Patient.findOne({ patientId: patientId });
     // console.log(student)
 
     if (!student) {
@@ -58,7 +64,7 @@ const studentdiagnosis = asyncHandler(async (req, res) => {
       throw new Error("student record not found ");
     }
     //update schema with mongoose?
-    const studentDiagnosed = await studentDiagnosis.create({
+    const studentDiagnosed = await Patient.create({
       studentId: student.id,
       studentName: student.name,
       matricNumber: student.matricNumber,
@@ -121,4 +127,4 @@ const prescribtion = asyncHandler(async (req, res) => {
     res.status(202).json(prescribed)
   }
 });
-module.exports = { studentdiagnosis, diagnosisData, prescribtion };
+module.exports = { patientdiagnosis, diagnosisData, prescribtion };
