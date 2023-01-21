@@ -11,7 +11,7 @@ const studentPR = mongoose.Schema(
         type:String,
         required:[true, "please add a name"]
     },
-    GivenBY: {
+    doctorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PATIENT",
       required: [true, "Please add a text value"],
@@ -21,7 +21,7 @@ const studentPR = mongoose.Schema(
       ref: "PATIENT",
         required: [true, "Please add a text value"],
     },
-    drug: {
+    drugName: {
       type: mongoose.Schema.Types.Mixed,
     },
     frequency: {
@@ -36,6 +36,9 @@ const studentPR = mongoose.Schema(
       default:false,
       required:[true, "please indicate if disbursed or not"]
     },
+    disbursedby:{
+      type:String
+    }
   },
   {
     timestamps: true,
