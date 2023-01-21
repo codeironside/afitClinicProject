@@ -64,16 +64,17 @@ const getoneProfession = asyncHandler(async (req, res) => {
 const getonepatient = asyncHandler(async (req, res) => {
   const { patientId } = req.body;
   //TODO:work on this ASAP when you come back
+  const patientONeid = await Patient.findOne({patientId:patientId})
    const lookup = await Patient.aggregate([
     {
-      $match: { _id: patientId },
+      $match: { _id: patientONeid._id },
     },
     {
       $lookup: {
-        from: "patientdiagnosis",
+        from: "patientdiagnoses",
         localField: "_id",
-        foreignField: "patientd",
-        as: "patientdiagnosis",
+        foreignField: "patientId",
+        as: "patientdiagnoses",
       },
     },
     {
@@ -83,8 +84,8 @@ const getonepatient = asyncHandler(async (req, res) => {
     //   $lookup: {
     //     from: "patientPrescribtion",
     //     localField: "_id",
-    //     foreignField: "patientI",
-    //     as: "product_info",
+    //     foreignField: "patientId",
+    //     as: "produ",
     //   },
     // },
     // {

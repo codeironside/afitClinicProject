@@ -33,3 +33,5 @@
 2023-01-20 14:15:53[errormiddleware.js] error: "401 - Unauthorized - invalid credentials - /api/admin/login - POST - ::1"
 2023-01-20 14:21:17[errormiddleware.js] error: "200 - OK - jwt is not defined - /api/admin/login - POST - ::1"
 2023-01-20 14:28:59[errormiddleware.js] error: "200 - OK - Cannot access 'profession' before initialization - /api/admin/getone - GET - ::1"
+2023-01-21 14:33:01[errormiddleware.js] error: "200 - OK - id is not defined - /api/admin/getoneuser - GET - ::1"
+2023-01-21 14:39:55[errormiddleware.js] error: "200 - OK - patietId is not defined - /api/admin/getoneuser - GET - ::1"
