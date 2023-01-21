@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const stafflogger = require("../../utils/stafflogs");
+const patientPrescribtion = require("../../models/patientPrescribtion");
 
 //@route api/patient/prescribtion
 //access private
@@ -9,7 +10,7 @@ const prescribtion = asyncHandler(async (req, res) => {
   const { id } = req.staff;
   const staff = await Patient.findById(id);
   if (staff.role === "doctor" || staff.role === "superAdmin") {
-    const { drugName, dosage, frequncy, patienId } = req.body;
+    const { drugName, dosage, frequncy, patientId } = req.body;
     // console.log(req.staff)
 
     const patientfound = await Patient.findOne({ patientId: patientId });
@@ -26,6 +27,7 @@ const prescribtion = asyncHandler(async (req, res) => {
       studentId: patientfound._id,
       studentName: `${patientfound.firsname}  ${patientfound.middlename}  ${patientfound.surname}`,
       patientId: patientfound.patienId,
+      drudid:Drug._id,
       drugName: drugName,
       dosage: dosage,
       frequncy: frequncy,
@@ -46,10 +48,17 @@ const prescribtion = asyncHandler(async (req, res) => {
         },
         { new: true }
       );
+      await patientPrescribtion.findByIdAndUpdate(
+        prescribed._id,
+        { $set: { disbursed: true,dusbursedby:staff._id } },
+        { new: true, useFindAndModify: false }
+      )
       if (prescribed) {
         res.status(202).json(prescribed);
       }
     } else {
+      res.status(401)
+      throw new Error("not authorized")
     }
   }
 });
