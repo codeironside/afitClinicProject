@@ -108,6 +108,10 @@ const getonepatient = asyncHandler(async (req, res) => {
     throw new Error("user not found")
   }
 });
+
+const shalom = asyncHandler(async(req,res) => {
+  const{id}= req.body
+})
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
