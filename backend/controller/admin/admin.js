@@ -7,7 +7,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
   const { patientId, password } = req.body;
 
   const patient = await Patient.findOne({ patientId: patientId });
-  if (patient && patient && bcrypt.compare(password, patient.password)) {
+  if (patient && bcrypt.compare(password, patient.password)) {
     if (patient.role === "superAdmin") {
       const cursor = await Patient.find({});
       //    const oneUSer= await  Patient.findOne({ _id: patientId }).populate(patientId)

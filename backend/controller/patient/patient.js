@@ -176,7 +176,7 @@ const loginSTAFF = asyncHandler(async (req, res) => {
   // const { role, ...data } = req.staff;
 
   const patient = await Patient.findOne({ patientId });
-  if (patient && patient && bcrypt.compare(password, patient.password)) {
+  if (patient && bcrypt.compare(password, patient.password)) {
 
     if (patient.role === "superAdmin") {
       const cursor = await Patient.find({});
