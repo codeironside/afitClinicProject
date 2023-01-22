@@ -60,8 +60,8 @@ const prescribtion = asyncHandler(async (req, res) => {
       if (prescribed) {
         res.status(202).json({ messgae: prescribed, drug: updateDrug });
         stafflogger.info(
-            `  pharmacist with id: ${id} disbursed a drug with drugid ${Drug._id} for patient: ${patientId} coode:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
-          );
+          `  pharmacist with id: ${id} disbursed a drug with drugid ${Drug._id} for patient: ${patientId} coode:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+        );
       }
     } else {
       const prescribed = await patientPrescribtion.findByIdAndUpdate(
@@ -71,6 +71,9 @@ const prescribtion = asyncHandler(async (req, res) => {
       );
       if (prescribed) {
         res.status(200).json({ hey: prescribed });
+        stafflogger.info(
+            `  pharmacist with id: ${id} could not disbursed drug with drugid ${Drug._id} for patient: ${patientId}, because drug is not in store code:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+          );
       }
     }
   } else {

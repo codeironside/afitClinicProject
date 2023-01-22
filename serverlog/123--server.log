@@ -170,3 +170,7 @@
 2023-01-21 15:22:12[db.js] info: "server running on development"
 2023-01-21 15:22:12[db.js] info: "database up and running on development"
 2023-01-21 15:22:19[db.js] info: "GET /api/admin/getoneuser 200 1449 - 215.173 ms\n"
+2023-01-22 03:07:30[db.js] info: "server running on development"
+2023-01-22 03:07:30[db.js] info: "database up and running on development"
+2023-01-22 03:08:21[db.js] info: "server running on development"
+2023-01-22 03:08:22[db.js] info: "database up and running on development"
