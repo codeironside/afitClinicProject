@@ -27,7 +27,7 @@ const prescribtion = asyncHandler(async (req, res) => {
       studentId: patientfound._id,
       studentName: `${patientfound.firsname}  ${patientfound.middlename}  ${patientfound.surname}`,
       patientId: patientfound.patienId,
-      drudid:Drug._id,
+      drudid: Drug._id,
       drugName: drugName,
       dosage: dosage,
       frequncy: frequncy,
@@ -35,10 +35,14 @@ const prescribtion = asyncHandler(async (req, res) => {
     });
     if (prescribed) {
       res.status(200).json({ message: prescribed });
+      stafflogger.info(
+        `  doctor with id: ${id} created  a prescribtion for ${patientId} coode:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+      );
     }
   } else if (staff.role === "pharmacost" || staff.role === "superAdmin") {
+    const { disbursed, notes } = req.body;
     if (disbursed === true) {
-      await Drug.findByIdAndUpdate(
+      const updateDrug = await Drug.findByIdAndUpdate(
         Drugfound._id,
         {
           $inc: {
@@ -48,17 +52,29 @@ const prescribtion = asyncHandler(async (req, res) => {
         },
         { new: true }
       );
-      await patientPrescribtion.findByIdAndUpdate(
-        prescribed._id,
-        { $set: { disbursed: true,dusbursedby:staff._id } },
+      const prescribed = await patientPrescribtion.findByIdAndUpdate(
+        id,
+        { $set: { disbursed: true, dusbursedby: staff._id, notes: notes } },
         { new: true, useFindAndModify: false }
-      )
+      );
       if (prescribed) {
-        res.status(202).json(prescribed);
+        res.status(202).json({ messgae: prescribed, drug: updateDrug });
+        stafflogger.info(
+            `  pharmacist with id: ${id} disbursed a drug with drugid ${Drug._id} for patient: ${patientId} coode:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+          );
       }
     } else {
-      res.status(401)
-      throw new Error("not authorized")
+      const prescribed = await patientPrescribtion.findByIdAndUpdate(
+        id,
+        { $set: { notes: notes } },
+        { new: true, useFindAndModify: false }
+      );
+      if (prescribed) {
+        res.status(200).json({ hey: prescribed });
+      }
     }
+  } else {
+    res.status(401);
+    throw new Error("not authorized");
   }
 });
