@@ -1,2 +1,6 @@
 2023-01-22 08:57:52[errormiddleware.js] error: "401 - Unauthorized - not authorize - /api/patient/prescribtion - POST - ::1"
 2023-01-22 08:58:39[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
+2023-01-22 20:13:28[errormiddleware.js] info: "  doctor with id: 63ca6877f2109dc73e4e6c98 created  a prescribtion for AFIT/FE/MTED/966 coode:200 - OK - /api/patient/prescribtion - POST - ::1 "
+2023-01-22 20:19:13[errormiddleware.js] error: "200 - OK - dosage is not defined - /api/patient/prescribtion - POST - ::1"
+2023-01-22 20:20:30[errormiddleware.js] error: "200 - OK - Drug.findByIdAndUpdate is not a function - /api/patient/prescribtion - POST - ::1"
+2023-01-22 20:22:30[errormiddleware.js] error: "200 - OK - Drug.findOne is not a function - /api/patient/prescribtion - POST - ::1"

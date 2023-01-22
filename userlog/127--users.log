@@ -3,3 +3,5 @@
 2023-01-15 19:41:14[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
 2023-01-15 19:42:27[errormiddleware.js] error: "200 - OK - Invalid select: select only takes 1 argument - /api/patient/login - POST - ::1"
 2023-01-15 19:43:05[errormiddleware.js] info: "  patient(staff) with patientid: ADMIN/001 logged in code:200 - OK - /api/patient/login - POST - ::1 "
+2023-01-22 19:54:57[errormiddleware.js] error: "200 - OK - prescribed is not defined - /api/patient/prescribtion - POST - ::1"
+2023-01-22 19:57:57[errormiddleware.js] info: "  pharmacist with id: 63ca6877f2109dc73e4e6c98 could not disbursed drug with drugid undefined for patient: AFIT/FE/MTED/966, because drug is not in store code:200 - OK - /api/patient/prescribtion - POST - ::1 "

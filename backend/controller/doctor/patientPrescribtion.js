@@ -67,11 +67,12 @@ const prescribtions = asyncHandler(async (req, res) => {
       }
     }
   } else if (staff.role === "pharmacist" || staff.role === "superAdmin") {
-    const { disbursed, notes, Drug, patientprescribtionId } = req.body;
+    const { disbursed, notes, DrugName, patientprescribtionId,patientId,dosage } = req.body;
     
     if (disbursed === "true") {
+      const drug = await Drug.findOne({DrugName:DrugName})
       const updateDrug = await Drug.findByIdAndUpdate(
-        Drug._id,
+        drug._id,
         {
           $inc: {
             CurrentQuantity: -parseInt(dosage),
@@ -92,15 +93,15 @@ const prescribtions = asyncHandler(async (req, res) => {
         );
       }
     } else {
-      const prescribed = await patientPrescribtion.findByIdAndUpdate(
+      const prescrib = await patientPrescribtion.findByIdAndUpdate(
         patientprescribtionId,
         { $set: { notes: notes } },
         { new: true, useFindAndModify: false }
       );
-      if (prescribed) {
-        res.status(200).json({ patient: prescribed });
+      if (prescrib) {
+        res.status(200).json({ patient: prescrib });
         stafflogger.info(
-          `  pharmacist with id: ${id} could not disbursed drug with drugid ${Drug._id} for patient: ${patientId}, because drug is not in store code:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
+          `  pharmacist with id: ${id} could not disbursed ${Drug} for patient: ${patientId}, because drug is not in store code:${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip} `
         );
       }
     }
