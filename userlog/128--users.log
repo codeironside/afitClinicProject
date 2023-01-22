@@ -4,3 +4,4 @@
 2023-01-22 20:19:13[errormiddleware.js] error: "200 - OK - dosage is not defined - /api/patient/prescribtion - POST - ::1"
 2023-01-22 20:20:30[errormiddleware.js] error: "200 - OK - Drug.findByIdAndUpdate is not a function - /api/patient/prescribtion - POST - ::1"
 2023-01-22 20:22:30[errormiddleware.js] error: "200 - OK - Drug.findOne is not a function - /api/patient/prescribtion - POST - ::1"
+2023-01-22 20:23:21[errormiddleware.js] error: "200 - OK - Plan executor error during findAndModify :: caused by :: Cannot apply $inc to a value of non-numeric type. {_id: ObjectId('62c42e183c0d7e274e3ebe9c')} has the field 'CurrentQuantity' of non-numeric type string - /api/patient/prescribtion - POST - ::1"

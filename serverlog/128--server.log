@@ -63,3 +63,6 @@
 2023-01-22 20:22:30[db.js] info: "POST /api/patient/prescribtion 200 229 - 185.793 ms\n"
 2023-01-22 20:22:52[db.js] info: "server running on development"
 2023-01-22 20:22:52[db.js] info: "database up and running on development"
+2023-01-22 20:23:07[db.js] info: "server running on development"
+2023-01-22 20:23:07[db.js] info: "database up and running on development"
+2023-01-22 20:23:21[db.js] info: "POST /api/patient/prescribtion 200 1077 - 505.727 ms\n"
