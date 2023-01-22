@@ -16,3 +16,4 @@
 2023-01-20 18:19:56[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
 2023-01-20 18:20:26[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
 2023-01-20 18:21:02[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "
+2023-01-22 18:54:34[errormiddleware.js] info: "  doctor with id: 63ca6877f2109dc73e4e6c98 created  a prescribtion for AFIT/FE/MTED/966 coode:200 - OK - /api/patient/prescribtion - POST - ::1 "

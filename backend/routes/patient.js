@@ -8,7 +8,7 @@ const {
 const {
   studentdiagnosis,
   diagnosisData,
-  prescribtion,
+
   patientdiagnosis,
 } = require("../controller/doctor/patientDiagnosis");
 const {
@@ -17,6 +17,7 @@ const {
 } = require("../controller/labattendant/Studentlabreport");
 
 const { protect } = require("../middleware/authmiddleware");
+const { prescribtions } = require("../controller/doctor/patientPrescribtion");
 
 router.route("/register").post(registerPatient);
 router.route("/login").get(loginPatient);
@@ -29,9 +30,11 @@ router.route("/login").post(loginSTAFF);
 
 // router.delete('/:id',  protect, deleteRecord)
 // router.put('/:id',protect, updateRecord)
-router.route("/prescribtion").post(protect, patientdiagnosis);
+router.route("/diagnosis").post(protect, patientdiagnosis);
 // router.post('/prescribtions',protect, prescribtion)
 router.route("/data").get(protect, diagnosisData);
+
+router.route("/prescribtion").post(protect, prescribtions)
 // router.route("/ClinicalReport").post(protect,ClinicalReport)
 // router.route("/MicroBiology").post(protect,MicroBiology)
 

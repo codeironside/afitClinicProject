@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const Drugschema = mongoose.Schema(
+const Drug = mongoose.Schema(
   {
-    DrugNamelowercased: {
+    DrugName: {
       type: String,
       required: [true, "please specify a drug name"],
     },
@@ -35,4 +35,4 @@ const Drugschema = mongoose.Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Drug", Drugschema);
+module.exports = mongoose.model("Drug", Drug);

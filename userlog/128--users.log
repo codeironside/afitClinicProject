@@ -1,0 +1,2 @@
+2023-01-22 08:57:52[errormiddleware.js] error: "401 - Unauthorized - not authorize - /api/patient/prescribtion - POST - ::1"
+2023-01-22 08:58:39[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/prescribtion - POST - ::1 "

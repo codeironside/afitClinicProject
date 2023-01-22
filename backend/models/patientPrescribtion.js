@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 const studentPR = mongoose.Schema(
   {
-    patienId: {
+    patientId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PATIENT",
-      required: true,
+      required:[, "add a patientId"],
     },
-  
-    patientName:{
-        type:String,
-        required:[true, "please add a name"]
+
+    patientName: {
+      type: String,
+      required: [true, "please add a name"],
     },
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,11 +18,16 @@ const studentPR = mongoose.Schema(
     },
     doctor: {
       type: String,
-      ref: "PATIENT",
-        required: [true, "Please add a text value"],
+      required: [true, "Please add a text value"],
     },
-    drugId:{
-      type:String
+    diagnosisId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "patientDiagnosis",
+      required: [true, "please add a field"],
+    },
+    drugId: {
+      type: String,
+      required:true
     },
     drugName: {
       type: String,
@@ -36,15 +41,15 @@ const studentPR = mongoose.Schema(
 
     disbursed: {
       type: Boolean,
-      default:false,
-      required:[true, "please indicate if disbursed or not"]
+      default: false,
+      required: [true, "please indicate if disbursed or not"],
     },
-    disbursedby:{
-      type:String
+    disbursedby: {
+      type: String,
     },
-    notes:{
-      type:String
-    }
+    notes: {
+      type: String,
+    },
   },
   {
     timestamps: true,
