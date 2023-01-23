@@ -1,0 +1,2 @@
+2023-01-23 12:21:25[errormiddleware.js] error: "202 - Accepted - Drug validation failed: DrugName: please specify a drug name - /api/drug/registernew - POST - ::1"
+2023-01-23 12:56:50[errormiddleware.js] error: "401 - Unauthorized - invalid credentials - /api/admin/login?patientId=AFIT-SUPERs&password=tobi - POST - ::1"

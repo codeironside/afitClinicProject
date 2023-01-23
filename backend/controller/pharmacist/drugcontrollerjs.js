@@ -35,60 +35,57 @@ const searched = asyncHandler(async (req, res) => {
 
 // const student = require('../models/student')
 
-//@desc upload new drugs
-//@routes POST/api/staff
-//@access Public
+// @desc upload new drugs
+// @routes POST/api/staff
+// @access Public
 
-// const registerNewdrug = asyncHandler(async (req, res) => {
-//   const { batchNumber, NafdacNumber,DrugName, expirydate, Druginflow } = req.body;
-//   // const DrugName = req.body.;
-//   // const { role, ...data } = req.Staff;
-// console.log(DrugName)
-//   //convert to small letters in javascript?
-//   var DrugNamelowercased = DrugName.toLowerCase();
+const registerNewdrug = asyncHandler(async (req, res) => {
+  const { batchNumber, NafdacNumber,DrugName, expirydate, Druginflow } = req.body;
 
-//   // if (roles !== "records" || roles == "admin") {
-//   //   res.status(403);
-//   //   throw new Error("not an authorized user");
-//   // }
-//   //check if batch exist
-//     const DrugExist = await Drug.findOne({ DrugNamelowercased:DrugName  });
-//     // res.status(200).json(DrugExist)
-//     if (!DrugExist || (DrugExist.CurrentQuantity<10)) {
-//       res.status(202);
-//       const drug = await Drug.create({
-//         DrugNamelowercased,
-//         batchNumber,
-//         NafdacNumber,
-//         expirydate,
-//         CurrentQuantity: Druginflow,
-//         totalquantity: Druginflow,
-//         // previousQuantity,
-//       });
-//       if (drug) {
-//         res.status(201).json({
-//           _id: drug.id,
-//           DrugName: drug.DrugNamelowrcased,
-//           batchNumber: drug.batchNumber,
-//           NafdacNumber: drug.NafdacNumber,
-//           expiryDate: drug.expiryDate,
-//           totalquantity: drug.totalquantity,
-//           //   currentQuantity: drug.currentQuantity,
+  var DrugNamelowercased = DrugName.toLowerCase();
+
+  // if (roles !== "records" || roles == "admin") {
+  //   res.status(403);
+  //   throw new Error("not an authorized user");
+  // }
+  //check if batch exist
+    const DrugExist = await Drug.findOne({ DrugName:DrugName  });
+    // res.status(200).json(DrugExist)
+    if (!DrugExist || (DrugExist.CurrentQuantity<10)) {
+      res.status(202);
+      const drug = await Drug.create({
+        DrugName,
+        batchNumber,
+        NafdacNumber,
+        expirydate,
+        CurrentQuantity: Druginflow,
+        totalquantity: Druginflow,
+        // previousQuantity,
+      });
+      if (drug) {
+        res.status(201).json({
+          _id: drug.id,
+          DrugName: drug.DrugNamelowrcased,
+          batchNumber: drug.batchNumber,
+          NafdacNumber: drug.NafdacNumber,
+          expiryDate: drug.expiryDate,
+          totalquantity: drug.totalquantity,
+          //   currentQuantity: drug.currentQuantity,
     
-//           // token:generateToken(student._id.roles)
-//         });
-//       } 
-//       }else {
-//         res.status(405).json({
-//           message:"drug already exist"
-//         })
+          // token:generateToken(student._id.roles)
+        });
+      } 
+      }else {
+        res.status(405).json({
+          message:"drug already exist"
+        })
           
-//         };
+        };
       
-//     }
+    }
   
  
-// );
+);
 // const updateDrugrecord = asyncHandler(async (req, res) => {
 //   const { DrugName, quantity } = req.body;
 //   //find drug
@@ -136,7 +133,7 @@ const searched = asyncHandler(async (req, res) => {
 // });
 
 module.exports = {
-  
+  registerNewdrug,
   searched,
   
 };

@@ -76,3 +76,6 @@
 2023-01-21 23:42:03[db.js] info: "database up and running on development"
 2023-01-21 23:44:04[db.js] info: "server running on development"
 2023-01-21 23:44:04[db.js] info: "database up and running on development"
+2023-01-23 11:27:14[db.js] info: "POST /api/drug/ 404 149 - 45.158 ms\n"
+2023-01-23 11:33:48[db.js] info: "server running on development"
+2023-01-23 11:33:49[db.js] info: "database up and running on development"

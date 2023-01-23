@@ -80,17 +80,17 @@ const getonepatient = asyncHandler(async (req, res) => {
     {
       $unwind: "$patientId",
     },
-    // {
-    //   $lookup: {
-    //     from: "patientPrescribtion",
-    //     localField: "_id",
-    //     foreignField: "patientId",
-    //     as: "produ",
-    //   },
-    // },
-    // {
-    //   $unwind: "$patientPrescribtion",
-    // },
+    {
+      $lookup: {
+        from: "patientPrescribtion",
+        localField: "_id",
+        foreignField: "patientId",
+        as: "patientId",
+      },
+    },
+    {
+      $unwind: "$patientPrescribtion",
+    },
     // {
     //   $lookup: {
     //     from: "purchases",

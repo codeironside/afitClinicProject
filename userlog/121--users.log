@@ -1,0 +1,7 @@
+2023-01-23 13:09:22[errormiddleware.js] error: "401 - Unauthorized - patient not found - /api/patient/prescribtion - POST - ::1"
+2023-01-23 13:21:03[errormiddleware.js] error: "200 - OK - studentPR validation failed: diagnosisId: please add a field - /api/patient/prescribtion - POST - ::1"
+2023-01-23 13:52:16[errormiddleware.js] error: "401 - Unauthorized - not authorize - /api/patient/prescribtion - POST - ::1"
+2023-01-23 13:53:14[errormiddleware.js] error: "200 - OK - studentPR validation failed: diagnosisId: please add a field - /api/patient/prescribtion - POST - ::1"
+2023-01-23 13:53:53[errormiddleware.js] info: "  doctor  with id: AFIT/FE/MTED/966 created a diagnosis:200 - OK - /api/patient/diagnosis - POST - ::1 "
+2023-01-23 13:55:23[errormiddleware.js] error: "200 - OK - studentPR validation failed: diagnosisId: Cast to ObjectId failed for value \"63ce836124f05aa51c0ba9a2\"\" (type string) at path \"diagnosisId\" because of \"BSONTypeError\" - /api/patient/prescribtion - POST - ::1"
+2023-01-23 13:55:33[errormiddleware.js] info: "  doctor with id: 63ca6877f2109dc73e4e6c98 created  a prescribtion for AFIT/FE/MTED/966 coode:200 - OK - /api/patient/prescribtion - POST - ::1 "

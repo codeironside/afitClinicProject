@@ -11,7 +11,7 @@ const Drug = require("../../models/drugs");
 const prescribtions = asyncHandler(async (req, res) => {
   const { id } = req.staff;
   const staff = await Patient.findById(id);
-  if (staff.role === "doctor") {
+  if (staff.role === "doctor" ) {
     const { drugName, dosage, frequncy, patientId, diagnosisID } = req.body;
     // console.log(req.staff)
 
@@ -66,11 +66,18 @@ const prescribtions = asyncHandler(async (req, res) => {
         );
       }
     }
-  } else if (staff.role === "pharmacist" || staff.role === "superAdmin") {
-    const { disbursed, notes, DrugName, patientprescribtionId,patientId,dosage } = req.body;
-    
+  } else if (staff.role === "pharmacist"|| staff.role==="superAdmin") {
+    const {
+      disbursed,
+      notes,
+      DrugName,
+      patientprescribtionId,
+      patientId,
+      dosage,
+    } = req.body;
+
     if (disbursed === "true") {
-      const drug = await Drug.findOne({DrugName:DrugName})
+      const drug = await Drug.findOne({ DrugName: DrugName });
       const updateDrug = await Drug.findByIdAndUpdate(
         drug._id,
         {

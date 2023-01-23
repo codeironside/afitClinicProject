@@ -35,3 +35,7 @@
 2023-01-20 14:28:59[errormiddleware.js] error: "200 - OK - Cannot access 'profession' before initialization - /api/admin/getone - GET - ::1"
 2023-01-21 14:33:01[errormiddleware.js] error: "200 - OK - id is not defined - /api/admin/getoneuser - GET - ::1"
 2023-01-21 14:39:55[errormiddleware.js] error: "200 - OK - patietId is not defined - /api/admin/getoneuser - GET - ::1"
+2023-01-23 14:01:11[errormiddleware.js] error: "200 - OK - studentPR validation failed: diagnosisId: please add a field - /api/patient/prescribtion?disburse - POST - ::1"
+2023-01-23 14:03:25[errormiddleware.js] error: "401 - Unauthorized - not authorized - /api/patient/prescribtion?disburse - POST - ::1"
+2023-01-23 14:04:27[errormiddleware.js] info: "  pharmacist with id: 63ca6877f2109dc73e4e6c98 disbursed a drug with drugid undefined for patient: AFIT/FE/MTED/966 coode:202 - Accepted - /api/patient/prescribtion?disburse - POST - ::1 "
+2023-01-23 14:07:33[errormiddleware.js] error: "401 - Unauthorized - not authorized, no token - /api/admin/getoneuser - GET - ::1"

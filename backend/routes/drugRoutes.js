@@ -7,7 +7,7 @@ const { registerNewdrug, searched, updateDrugrecord } = require("../controller/p
 
 //function imported from the drugcontrollerjs file to create and get new drugs
 router.route("/search").get(searched);
-// router.route("/").post(registerNewdrug);
+router.route("/registernew").post(registerNewdrug);
 
 // // .post(protect,setGoal)
 // router.route("/updateDrug").put(updateDrugrecord)
